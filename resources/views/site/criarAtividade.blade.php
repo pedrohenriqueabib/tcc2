@@ -8,6 +8,14 @@
                 <input type="text" name="nomeAtividade" style="width:50%" class="form-control" id="nomeAtividade" >
             </div>
             <div class="mb-3">
+                <label for="localAtividade" class="form-label">Local da Atividade:*</label>
+                <input type="text" name="localAtividade" style="width:50%" class="form-control" id="localAtividade" >
+            </div>
+            <div class="mb-3">
+                <label for="vagas" class="form-label">Total de Vagas:*</label>
+                <input type="text" name="vagas" style="width:50%" class="form-control" id="vagas" >
+            </div>
+            <div class="mb-3">
                 <label for="descricao" class="form-label">Descricao da Atividade:*</label>
                 <div>
                     <textarea name="descricaoAtividade" id="descricaoAtividade" cols="80" rows=""></textarea>

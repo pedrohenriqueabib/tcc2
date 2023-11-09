@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControleLogin;
 use App\Http\Controllers\ControleCriarAtividade;
+use App\Http\Controllers\ControleCriarEvento;
 
 Route::get('/', function(){
     return view('site.home');
@@ -28,5 +29,10 @@ Route::get('/perfil', function(){
     return view('site.perfil');
 })->name('site.perfil');
 
+Route::get('/evento', function(){
+    return view('site.evento');
+})->name('site.evento');
+
 Route::post('/controleCriarAtividade', [ControleCriarAtividade::class, 'index'])->name('controleCriarAtividade');
 Route::get('/controleLogin', [ControleLogin::class, 'index'])->name('controleLogin');
+Route::post('/controleCriarEvento', [ControleCriarEvento::class, 'index'])->name('controleCriarEvento');
