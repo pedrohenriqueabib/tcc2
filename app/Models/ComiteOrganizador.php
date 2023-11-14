@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class ComiteOrganizador extends Model
-{
+class ComiteOrganizador extends Model {
     use HasFactory;
 
     protected $table = 'comite_organizador';
@@ -15,13 +14,11 @@ class ComiteOrganizador extends Model
     
     protected $guarded = ['id'];
 
-    public function organizadores(): BelongsToMany
-    {
+    public function organizadores(): BelongsToMany {
         return $this-> belongsToMany(Organizador::class);
     }
 
-    public function comites(): BelongsToMany
-    {
+    public function comites(): BelongsToMany {
         return $this->belongsToMany(Comite::class);
     }
 

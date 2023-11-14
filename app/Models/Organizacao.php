@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Organizacao extends Model
-{
+class Organizacao extends Model {
     use HasFactory;
 
     protected $table = 'organizacao';
@@ -17,8 +16,12 @@ class Organizacao extends Model
 
     public $timestamps = false;
 
-    public function evento(): BelongsTo
-    {
+    public function evento(): BelongsTo {
         return $this->belongsTo(Evento::class);
     }
+
+    public function comites(): HasMany {
+        return $this->hasMany(Comite::class);
+    }
+
 }

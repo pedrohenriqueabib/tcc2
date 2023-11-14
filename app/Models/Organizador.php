@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Organizador extends Model
-{
+class Organizador extends Model {
+    
     use HasFactory;
     protected $table = 'organizador';
     protected $fillable = ['nome', 'telefone', 'email', 'cargo', 'matricula'];
@@ -16,8 +16,7 @@ class Organizador extends Model
 
     public $timestamps = false;
 
-    public function comiteOrganizador(): HasMany
-    {
+    public function comiteOrganizador(): HasMany {
         return $this->hasMany(ComiteOrganizador::class);
     }
 
