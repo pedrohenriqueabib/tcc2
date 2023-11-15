@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Responsavel>
  */
-class ResponsavelFactory extends Factory
+class OrganizadorFactory extends Factory
 {
      /**
      * Define the model's default state.
@@ -20,6 +20,17 @@ class ResponsavelFactory extends Factory
 
     public function definition() : array
     {
+        //$selectedDays = $this->faker->randomElements(['SEG', 'TER', 'QUA','QUI', 'SEX', 'SAB', 'DOM'], $count = rand(1, 7));
+        /*
+        return [
+            'nome' => 'Ana',
+            'telefone' => '(21)99999-9999',
+            'email'=> 'ana@ana.com',
+            'cargo' => 'Testadora',
+            'matricula'=>'1112223',
+            
+        ];
+        */
         return [
             'nome' => fake('pt_BR')->name(),
             'telefone' => $this->faker->phoneNumber('########'),
@@ -28,5 +39,6 @@ class ResponsavelFactory extends Factory
             'matricula'=>$this->faker->numerify('#####'),
             
         ];
+        
     }
 }

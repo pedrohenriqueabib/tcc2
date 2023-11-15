@@ -22,9 +22,9 @@ class LocalFactory extends Factory
     {
         
         return [
-            'nome' => $this->faker->word(),
-            'pavimento' => $this->faker->word(2, true),
-            'bloco'=> $this->faker->word(), 
+            'nome' => $this->faker->realText($maxNbChars = 30),
+            'pavimento' => $this->faker->realText($maxNbChars = 15),
+            'bloco'=> $this->faker->realText($maxNbChars = 10),
         ];
     }
 }

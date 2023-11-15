@@ -25,7 +25,7 @@ class OrganizacaoFactory extends Factory
 
         return [
             'nome' => $this->faker->word(),
-            'atividade_id' => $this->faker->randomElement($existingEventoIds),
+            'evento_id' => $this->faker->randomElement($existingEventoIds),
         ];
     }
 }

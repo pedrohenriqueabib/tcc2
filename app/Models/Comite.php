@@ -13,7 +13,7 @@ class Comite extends Model {
     use HasFactory;
     protected $table = 'comite';
     protected $guarded = ['id'];
-    protected $fillable = ['nome', 'descricao'];
+    protected $fillable = ['nome', 'descricao', 'organizacao_id'];
 
     public $timestamps = false;
 

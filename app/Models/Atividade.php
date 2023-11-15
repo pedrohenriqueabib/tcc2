@@ -12,7 +12,7 @@ class Atividade extends Model {
     use HasFactory;
     protected $table = 'atividade';
     protected $guarded = ['id'];
-    protected $fillable = ['nome', 'descricao', 'palavras_chaves', 'area', 'subarea', 'carga_horaria'];
+    protected $fillable = ['nome', 'descricao', 'palavras_chaves', 'area', 'subarea', 'carga_horaria', 'evento_id'];
     
     public $timestamps = false;
 

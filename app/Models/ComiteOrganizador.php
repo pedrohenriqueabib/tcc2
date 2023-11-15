@@ -10,9 +10,10 @@ class ComiteOrganizador extends Model {
     use HasFactory;
 
     protected $table = 'comite_organizador';
+    protected $guarded = ['id'];
     protected $fillable = ['comite_id','organizador_id'];
     
-    protected $guarded = ['id'];
+    public $timestamps = false;
 
     public function organizadores(): BelongsToMany {
         return $this-> belongsToMany(Organizador::class);
