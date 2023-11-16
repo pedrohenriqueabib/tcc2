@@ -6,7 +6,7 @@
         <a class="nav-link active" id="tab1" data-bs-toggle="tab" href="#content1" role="tab" aria-controls="content1" aria-selected="true">Evento</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="tab2" data-bs-toggle="tab" href="#content2" role="tab" aria-controls="content2" aria-selected="false">Aba 2</a>
+        <a class="nav-link" id="tab2" data-bs-toggle="tab" href="#content2" role="tab" aria-controls="content2" aria-selected="false">Atividades</a>
       </li>
       <li class="nav-item" role="presentation">
         <a class="nav-link" id="tab3" data-bs-toggle="tab" href="#content3" role="tab" aria-controls="content3" aria-selected="false">Aba 3</a>
@@ -30,49 +30,32 @@
                     </div>
                     <div class="mb-3">
                         <label for="nomeEvento" class="form-label">Nome do Evento:*</label>
-                        <input type="text" value='{{session("nomeEvento")}}' style="width:50%" class="form-control" id="nomeEvento" >
+                        <input type="text" value='{{$evento->nome}}' style="width:50%" class="form-control" id="nomeEvento" >
                     </div>
                     <div class="mb-3">
-                        <label for="descricao" class="form-label">Descricao:*</label>
+                        <label for="descricao" class="form-label">Descriçao:*</label>
                         <div>
-                            <textarea name="descricao" id="descricao" cols="80" rows="">{{session("descricao")}}</textarea>
+                            <textarea name="descricao" id="descricao" cols="80" rows="">{{"$evento->descricao"}}</textarea>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="avRua" class="form-label">Av/Rua:*</label>
-                        <input type="text"  style="width:50%" class="form-control" value='{{session("avRua")}}'id="avRua">
+                        <label for="avRua" class="form-label">Endereço:*</label>
+                        <input type="text"  style="width:50%" class="form-control" value='{{$evento->endereco}}'id="avRua">
                     </div>
                     <div class="mb-3">
-                        <label for="numero" class="form-label">Nº.:*</label>
-                        <input type="text"  style="width:50%" class="form-control" value='{{session("numero")}}' id="numero">
+                        <label for="edicao" class="form-label">Ediçao:*</label>
+                        <input type="text"  style="width:50%" class="form-control" value='{{$evento->edicao}}' id="edicao">
                     </div>
                     <div class="mb-3">
-                        <label for="bairro" class="form-label">Bairro:*</label>
-                        <input type="text"  style="width:50%" class="form-control" value='{{session("bairro")}}'id="bairro">
+                        <label for="site" class="form-label">Site:*</label>
+                        <input type="text"  style="width:50%" class="form-control" value='{{$evento->site}}' id="site">
                     </div>
-                    <div class="mb-3">
-                        <label for="cidade" class="form-label">Cidade:*</label>
-                        <input type="text"  style="width:50%" class="form-control" value='{{session("cidade")}}' id="cidade">
-                    </div>
-                    <div class="mb-3">
-                        <label for="estado" class="form-label">Estado:*</label>
-                        <input type="text"  style="width:50%" class="form-control" value='{{session("estado")}}'id="estado">
-                    </div>
-                    <div class="mb-3">
-                        <label for="complemento" class="form-label">Complemento:</label>
-                        <input type="text"  style="width:50%" class="form-control" value='{{session("complemento")}}' id="complemento">
-                    </div>
+                    
                     <div class="mb-3">
                         <label for="dataInicio" class="form-label">Data de Início:</label>
-                        <input type="date" style="width:11%" class="form-control" value='{{session("dataInicio")}}' id="dataInicio">
+                        <input type="date" style="width:11%" class="form-control" value='{{$evento->data_inicio}}' id="dataInicio">
                         <label for="dataTérmino" class="form-label">Data Término:</label>
-                        <input type="date" style="width:11%" class="form-control" value='{{session("dataFim")}}' id="dataFim">
-                    </div>
-                    <div class="mb-3">
-                        <label for="horaInicio" class="form-label">Início:</label>
-                        <input type="time" style="width:10%" class="form-control" value='{{session("horaInicio")}}' id="horaInicio">
-                        <label for="horaTérmino" class="form-label">Término:</label>
-                        <input type="time" style="width:10%" class="form-control" value='{{session("horaTermino")}}' id="horaTermino">
+                        <input type="date" style="width:11%" class="form-control" value='{{$evento->data_fim}}' id="dataFim">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Editar</button>
@@ -85,6 +68,29 @@
         <div class="tab-pane fade" id="content2" role="tabpanel" aria-labelledby="tab2">      
             <div class="container py-5">
             Atividades Relacionadas: <a href="{{route('site.criarAtividade')}}">+</a>
+
+            <table class="table table-bordered table-striped mb-none dataTable no-footer" role="grid" aria-describedby="datatable-default_info">
+					<thead>
+						<tr role="row">
+                            <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nome: activate to sort column ascending" style="width: 225.938px;">Nome</th>
+                            <!-- <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Raça: activate to sort column ascending" style="width: 206.328px;">Raça</th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Cor: activate to sort column ascending" style="width: 172.578px;">Cor</th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Ação: activate to sort column ascending" style="width: 209.156px;">Ação</th> -->
+                        </tr>
+					</thead>
+					<tbody id="tabela">				        
+                            @foreach($evento->atividades as $valor)
+                                <tr  class="tabble-row odd" role="row">
+                                    <td class="sorting_1">{{ $valor->nome }}</td>
+                                </tr>
+                            @endforeach
+                            
+                            <!-- <td>ewrwe</td>
+                            <td>wer</td>
+                            <td><i class="glyphicon glyphicon-pencil"></i></td> -->
+                    </tbody>
+			</table>
+
                 
             </div>
         </div>
