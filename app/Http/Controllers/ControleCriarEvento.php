@@ -3,22 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Evento;
+use App\Models\Organizacao;
 
 class controleCriarEvento extends Controller
 {
-    public function index(Request $request){
-        session()->put('nomeEvento', $request->input('nomeEvento'));
-        session()->put('descricao', $request->input('descricao'));
-        session()->put('avRua', $request->input('avRua'));
-        session()->put('numero', $request->input('numero'));
-        session()->put('bairro', $request->input('bairro'));
-        session()->put('cidade', $request->input('cidade'));
-        session()->put('estado', $request->input('estado'));
-        session()->put('complemento', $request->input('complemento'));
-        session()->put('dataInicio', $request->input('dataInicio'));
-        session()->put('dataFim', $request->input('dataFim'));
-        session()->put('horaInicio', $request->input('horaInicio'));
-        session()->put('horaTermino', $request->input('horaTermino'));
-        return redirect()->route('site.evento');
+    public function create(Request $request){
+       $evento = new Evento();
+       $evento->nome = $request->nomeEvento;
+       $evento->descricao = $request->descricao;
+       $evento->edicao = $request->edicao;
+       $evento->endereco = $request->endereco;
+       $evento->site = $request->site;
+       $evento->data_inicio = $request->data_inicio;
+       $evento->data_fim = $request->data_fim;
+       $evento->save();
+
+       $organizacao = new Organizacao();
+       $organizacao->nome = $request->nomeOrganizacao;
+       $organizacao->evento_id = $evento->id;
+       $organizacao->save();
+
+       $comite = new Comite();
+       $comite->nome = $request->nomeComite;
+       $comite->descricao = $request->descricaoComite;
+       $comite->organizacao_id = $organizacao->id;
+       $comite->save();
+
+       $comite_organizador = new ComiteOrganizador();
+       $comite_organizador->comite_id = $comite->id;
+       $comite_organizador->organizador_id = $organizador->id;
+       $comite_organizador->save();
+
+    //    return redirect()->route('site.evento');
+
+        return $evento->id;
     }
 }

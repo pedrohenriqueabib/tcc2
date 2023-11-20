@@ -26,7 +26,7 @@
                             </li>
                             <li class="nav-item dropdown px-2 py-1 py-sm-0">
                                 <a href="{{ route('site.perfil') }}" class="navbar-brand d-flex align-items-center">
-                                    {{session('nome')}}
+                                    {{session('organizador')}}
                                 </a>
                             </li>
                             <li class="nav-item dropdown px-2 py-1 py-sm-0">

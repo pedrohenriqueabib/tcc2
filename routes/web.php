@@ -5,6 +5,7 @@ use App\Http\Controllers\ControleLogin;
 use App\Http\Controllers\ControleCriarAtividade;
 use App\Http\Controllers\ControleCriarEvento;
 use App\Http\Controllers\ControleEvento;
+use App\Http\Controllers\CadastroControle;
 
 
 Route::get('/', function(){
@@ -35,7 +36,16 @@ Route::get('/atividade', function(){
     return view('site.atividade');
 })->name('site.atividade');
 
+Route::get('/evento', function(){
+    return view('site.evento');
+})->name('site.evento');
+
+Route::get('/criarComite', function(){
+    return view('site.criarComite');
+})->name('site.criarComite');
+
 Route::post('/controleCriarAtividade', [ControleCriarAtividade::class, 'index'])->name('controleCriarAtividade');
+Route::post('/controleCriarEvento', [ControleCriarEvento::class, 'create'])->name('controleCriarEvento');
+Route::post('/cadastroControle', [CadastroControle::class, 'create'])->name('controleCadastro');
 Route::get('/controleLogin', [ControleLogin::class, 'index'])->name('controleLogin');
-Route::post('/controleCriarEvento', [ControleCriarEvento::class, 'index'])->name('controleCriarEvento');
 Route::get('/controleEvento', [ControleEvento::class, 'teste'])->name('controleEvento');
