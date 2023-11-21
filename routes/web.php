@@ -6,6 +6,7 @@ use App\Http\Controllers\ControleCriarAtividade;
 use App\Http\Controllers\ControleCriarEvento;
 use App\Http\Controllers\ControleEvento;
 use App\Http\Controllers\CadastroControle;
+use App\Http\Controllers\ControleLogout;
 
 
 Route::get('/', function(){
@@ -49,3 +50,4 @@ Route::post('/controleCriarEvento', [ControleCriarEvento::class, 'create'])->nam
 Route::post('/cadastroControle', [CadastroControle::class, 'create'])->name('controleCadastro');
 Route::get('/controleLogin', [ControleLogin::class, 'index'])->name('controleLogin');
 Route::get('/controleEvento', [ControleEvento::class, 'teste'])->name('controleEvento');
+Route::get('/logout', [ControleLogout::class, 'index'])->name('controleLogout');

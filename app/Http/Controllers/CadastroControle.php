@@ -29,6 +29,7 @@ class CadastroControle extends Controller
         $organizador->email = $request->email;
         $organizador->cargo = $request->cargo;
         $organizador->matricula = $request->matricula;
+        // $organizador->senha = $request->password;
         $organizador->save();
 
         session()->put('organizador', $request->nome);

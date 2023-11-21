@@ -11,7 +11,7 @@
             <div class="mb-3">
                 <label for="organizador" class="form-label">Organizador:</label>
                 <input type="text" name='organizador' id="organizador" value='{{session("organizador")}}' style="width:50%" class="form-control" disabled>
-                <input type="hidden" name="organizador_id" id="organizador_id" value="{{session('')}}">
+                <input type="hidden" name="organizador_id" id="organizador_id" value="{{session('organizador_id')}}">
             </div>
             <!-- Organização -->
             <div class="mb-3">

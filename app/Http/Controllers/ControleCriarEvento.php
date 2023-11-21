@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Evento;
 use App\Models\Organizacao;
+use App\Models\Comite;
+use App\Models\ComiteOrganizador;
 
 class controleCriarEvento extends Controller
 {
@@ -25,7 +27,7 @@ class controleCriarEvento extends Controller
        $organizacao->save();
 
        $comite = new Comite();
-       $comite->nome = $request->nomeComite;
+       $comite->nome = $request->comite;
        $comite->descricao = $request->descricaoComite;
        $comite->organizacao_id = $organizacao->id;
        $comite->save();
