@@ -47,7 +47,7 @@ Route::get('/criarComite', function(){
 
 Route::post('/controleCriarAtividade', [ControleCriarAtividade::class, 'index'])->name('controleCriarAtividade');
 Route::post('/controleCriarEvento', [ControleCriarEvento::class, 'create'])->name('controleCriarEvento');
-Route::post('/cadastroControle', [CadastroControle::class, 'create'])->name('controleCadastro');
+Route::match(['get', 'post'], '/cadastroControle', [CadastroControle::class, 'create'])->name('controleCadastro');
 Route::get('/controleLogin', [ControleLogin::class, 'index'])->name('controleLogin');
 Route::get('/controleEvento', [ControleEvento::class, 'teste'])->name('controleEvento');
 Route::get('/logout', [ControleLogout::class, 'index'])->name('controleLogout');

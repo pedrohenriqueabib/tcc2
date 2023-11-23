@@ -23,5 +23,6 @@
             <button type="reset" class="btn btn-primary">Resetar</button>        
         </form>
     </div>
+    <script src="./js/login.js"></script>
 </body>
 @endsection

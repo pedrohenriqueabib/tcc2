@@ -36,11 +36,9 @@ class CadastroControle extends Controller
             // $organizador->senha = $request->password;
             $organizador->save();
 
-        // session()->put('organizador', $request->nome);
-        // session()->put('token', $request->_token);
-        // session()->put('organizador_id', $organizador->id);
             session()->put('nome', $request->nome);
             session()->put('email', $request->email);
+            session()->put('tipoPerfil', 'Organizador');
             
             return redirect('/perfil');
 
@@ -53,7 +51,13 @@ class CadastroControle extends Controller
             $responsavel->matricula = $request->matricula;
             // $responsavel->password = $request->password;
             $responsavel->save();
-            return "responsavel feito";
+
+            session()->put('nome', $request->nome);
+            session()->put('email', $request->email);
+            session()->put('tipoPerfil', 'Responsavel');
+            
+            return redirect('/perfil');
+
         }else if($request->formTipo == 'formParticipante'){
             $participante = new Participante();
             $participante->nome = $request->participante;
@@ -61,7 +65,13 @@ class CadastroControle extends Controller
             $participante->email = $request->email;
             // $participante->password = $request->password;
             $participante->save();
-            return "participante feito";
+
+            session()->put('nome', $request->nome);
+            session()->put('email', $request->email);
+            session()->put('tipoPerfil', 'Participante');
+            
+            return redirect('/perfil');
+
         }else if($request->formTipo == 'formColaborador'){
             $colaborador = new Colaborador();
             $colaborador->nome = $request->nome;
@@ -70,7 +80,13 @@ class CadastroControle extends Controller
             $colaborador->descricao = $request->descricao;
             // $colaborador->password = $request->password;
             $colaborador->save();
-            return redirect()->route('site.perfil');
+
+            session()->put('nome', $request->nome);
+            session()->put('email', $request->email);
+            session()->put('tipoPerfil', 'Colaborador');
+            
+            return redirect('/perfil');
+
         }
 
     }
