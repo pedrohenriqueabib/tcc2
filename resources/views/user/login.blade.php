@@ -1,4 +1,4 @@
-
+extends('site.layouts.layout')
 <body>
     <div class="container py-5">
         <h2 class="fs-6">

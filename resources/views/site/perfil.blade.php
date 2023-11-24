@@ -4,8 +4,8 @@
     <div>
         <p><strong>Tipo: </strong>{{session('tipoPerfil')}}</p>
         <input type="hidden" value="{{session('tipoPerfil')}}" id="tipoPerfil" />
-        <p><strong>Nome: </strong>{{session('nomeUsuario')}}</p>
-        <p><strong>Email: </strong>{{session('emailUsuario')}}</p>
+        <p><strong>Nome: </strong>{{session('userName')}}</p>
+        <p><strong>Email: </strong>{{session('userEmail')}}</p>
         <!-- <p><strong>Meus Eventos:<a href="{{route('site.criarEvento')}}">+</a></strong></p> -->
         <div class="caixa">
             

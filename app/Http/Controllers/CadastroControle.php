@@ -36,8 +36,8 @@ class CadastroControle extends Controller
             // $organizador->senha = $request->password;
             $organizador->save();
 
-            session()->put('nome', $request->nome);
-            session()->put('email', $request->email);
+            session()->put('userName', $request->nome);
+            session()->put('userEmail', $request->email);
             session()->put('tipoPerfil', 'Organizador');
             
             return redirect('/perfil');
