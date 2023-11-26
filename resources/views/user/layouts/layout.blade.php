@@ -25,7 +25,7 @@
                                 </a>
                             </li>
                             <li class="nav-item dropdown px-2 py-1 py-sm-0">
-                                <a href="{{route('controleLogout')}}" class="navbar-brand d-flex align-items-center">
+                                <a href="{{route('logout')}}" class="navbar-brand d-flex align-items-center">
                                     Logout
                                 </a>
                             </li>

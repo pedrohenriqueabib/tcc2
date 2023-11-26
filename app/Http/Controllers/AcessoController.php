@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
+
 use Illuminate\Http\Request;
+
+use App\Models\Organizador;
+use App\Models\Colaborador;
+use App\Models\Participante;
+use App\Models\Responsavel;
 
 class AcessoController extends Controller
 {
     public function login() { // exibe formulário para autenticação a resolver
+        return view('site.login');
+    }
+
+    public function auth(Request $request) { // autenticar o usuario
         $organizador = Organizador::where('email', $request->email)->first();//->where('password', $request->password)->first();
         $colaborador = Colaborador::where('email', $request->email)->first();//->where('password', $request->password)->first();
         $participante = Participante::where('email', $request->email)->first();//->where('password', $request->password)->first();
@@ -16,41 +27,38 @@ class AcessoController extends Controller
             session()->put('tipoPerfil', 'Organizador');
             session()->put('token',$request->_token);
             session()->put('nomeUsuario',$organizador->nome);
-            session()->put('idUsuario', $organizador->idUsuario);
-            session()->put('emailUsuario', $responsavel->email);
+            session()->put('idUsuario', $organizador->id);
+            session()->put('emailUsuario', $organizador->email);
             
             return redirect()->route('site.home');
         }else if($colaborador){
             session()->put('tipoPerfil', 'Colaborador');
             session()->put('token',$request->_token);
             session()->put('nomeUsuario',$colaborador->nome);
-            session()->put('idUsuario', $colaborador->idUsuario);
-            session()->put('emailUsuario', $responsavel->email);
+            session()->put('idUsuario', $colaborador->id);
+            session()->put('emailUsuario', $colaborador->email);
             
             return redirect()->route('site.home');
         }else if($participante){
             session()->put('tipoPerfil', 'Participante');
             session()->put('token',$request->_token);
             session()->put('nomeUsuario',$participante->nome);
-            session()->put('idUsuario', $participante->idUsuario);
-            session()->put('emailUsuario', $responsavel->email);
+            session()->put('idUsuario', $participante->id);
+            session()->put('emailUsuario', $participante->email);
 
             return redirect()->route('site.home');
         }else if($responsavel){
             session()->put('tipoPerfil', 'Responsavel');
             session()->put('token',$request->_token);
             session()->put('nomeUsuario',$responsavel->nome);
-            session()->put('idUsuario', $responsavel->idUsuario);
+            session()->put('idUsuario', $responsavel->id);
             session()->put('emailUsuario', $responsavel->email);
             
             return redirect()->route('site.home');
         }else{
             return redirect()->route('site.login', ['erro'=>'nuser']);
         }
-    }
-
-    public function auth() { // autenticar o usuario
-
+        // return 'autenticar ' . $request->email;
     }
 
     public function signup () { // exibe formulário para cadastro de novo usuario
@@ -68,8 +76,8 @@ class AcessoController extends Controller
             // $organizador->senha = $request->password;
             $organizador->save();
 
-            session()->put('userName', $request->nome);
-            session()->put('userEmail', $request->email);
+            session()->put('nomeUsuario', $request->nome);
+            session()->put('emailUsuario', $request->email);
             session()->put('tipoPerfil', 'Organizador');
             
             return redirect('/perfil');
@@ -84,8 +92,8 @@ class AcessoController extends Controller
             // $responsavel->password = $request->password;
             $responsavel->save();
 
-            session()->put('nome', $request->nome);
-            session()->put('email', $request->email);
+            session()->put('nomeUsuario', $request->nome);
+            session()->put('emailUsuario', $request->email);
             session()->put('tipoPerfil', 'Responsavel');
             
             return redirect('/perfil');
@@ -98,8 +106,8 @@ class AcessoController extends Controller
             // $participante->password = $request->password;
             $participante->save();
 
-            session()->put('nome', $request->nome);
-            session()->put('email', $request->email);
+            session()->put('nomeUsuario', $request->nome);
+            session()->put('emailUsuario', $request->email);
             session()->put('tipoPerfil', 'Participante');
             
             return redirect('/perfil');
@@ -113,8 +121,8 @@ class AcessoController extends Controller
             // $colaborador->password = $request->password;
             $colaborador->save();
 
-            session()->put('nome', $request->nome);
-            session()->put('email', $request->email);
+            session()->put('nomeUsuario', $request->nome);
+            session()->put('emailUsuario', $request->email);
             session()->put('tipoPerfil', 'Colaborador');
             
             return redirect('/perfil');
@@ -128,6 +136,6 @@ class AcessoController extends Controller
     public function logout(){
         Session::flush();
         return view('site.home');
-    }
+    }   
 
 }

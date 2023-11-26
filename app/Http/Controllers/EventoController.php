@@ -10,7 +10,7 @@ use App\Models\ComiteOrganizador;
 
 class EventoController extends Controller
 {
-    public function create(Request $request){
+    public function save(Request $request){
         $evento = new Evento();
         $evento->nome = $request->nomeEvento;
         $evento->descricao = $request->descricao;
@@ -37,8 +37,8 @@ class EventoController extends Controller
         $comite_organizador->organizador_id = $organizador->id;
         $comite_organizador->save();
  
-     //    return redirect()->route('site.evento');
+        return redirect()->route('site.evento');
  
-         return $evento->id;
+        //  return $evento->id;
      }
 }

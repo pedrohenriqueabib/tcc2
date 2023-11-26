@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AcessoController;
 
+
 use App\Http\Controllers\ControleLogin;
 use App\Http\Controllers\ControleCriarAtividade;
 use App\Http\Controllers\ControleCriarEvento;
@@ -18,7 +19,7 @@ use App\Http\Controllers\ControleLogout;
 Route::prefix('acesso')->group(function () {
 
     // Rota para autenticar usuario
-    Route::get('/login', [AcessoController::class, 'login'])->name('site.login');
+    Route::get('/login', [AcessoController::class, 'login'])->name('login');
 
     // Rota para autenticar usuario
     Route::post('/auth', [AcessoController::class, 'auth'])->name('autenticar');
@@ -32,6 +33,9 @@ Route::prefix('acesso')->group(function () {
     // Rota para salvar um novo funcionário (via método POST)
     Route::post('/', [AcessoController::class, 'save'])->name('saveUser');
 
+    // Rota para sair da sessão
+    Route::get('/logout', [AcessoController::class, 'logout'])->name('logout');
+
     // Rota para atualizar um funcionário existente (via método PUT)
     //Route::put('/', [FuncionariosController::class, 'update']);
 
@@ -39,7 +43,25 @@ Route::prefix('acesso')->group(function () {
     //Route::get('checkCPF', [FuncionariosController::class, 'checkCPF'])->name('cpfJaCadastrado');
 });
 
+Route::prefix('evento')->group( function(){
+    // Rota para exibir evento
+    Route::get('/showEvent', [EventoController::class, 'show'])->name('showEvent');
+    
+    // Rota para salvar um evento
+    Route::post('/saveEvent', [EventoController::class, 'save'])->name('saveEvent');
 
+    // Rota para atualizar evento
+    Route::post('/updateEvent', [EventoController::class, 'update'])->name('updateEvent');
+
+});
+
+Route::prefix('atividade')->group( function (){
+    // Rota para criar atividade
+    Route::post('saveActivity', [AtividadeController::class, 'save'])->name('saveActivity');
+
+    //Rota para atualizar
+    Route::post('updateActivity', [AtividadeController::class, 'update'])->name('updateActivity');
+});
 
 Route::get('/', function(){
     return view('site.home');
@@ -81,6 +103,6 @@ Route::get('/criarComite', function(){
 Route::post('/controleCriarAtividade', [ControleCriarAtividade::class, 'index'])->name('controleCriarAtividade');
 Route::post('/controleCriarEvento', [ControleCriarEvento::class, 'create'])->name('controleCriarEvento');
 Route::match(['get', 'post'], '/cadastroControle', [CadastroControle::class, 'create'])->name('controleCadastro');
-Route::get('/controleLogin', [ControleLogin::class, 'index'])->name('controleLogin');
+// Route::get('/controleLogin', [ControleLogin::class, 'index'])->name('controleLogin');
 Route::get('/controleEvento', [ControleEvento::class, 'teste'])->name('controleEvento');
-Route::get('/logout', [ControleLogout::class, 'index'])->name('controleLogout');
+// Route::get('/logout', [ControleLogout::class, 'index'])->name('controleLogout');
