@@ -26,7 +26,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="organizador" class="form-label">Organizador:</label>
-                        <input type="text" value='{{session("organizador")}}' style="width:50%" class="form-control" name="organizador" id="organizador" disabled>
+                        <input type="text" value='{{session("nomeUsuario")}}' style="width:50%" class="form-control" name="organizador" id="organizador" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="nomeEvento" class="form-label">Nome do Evento:*</label>
@@ -79,11 +79,7 @@
                         </tr>
 					</thead>
 					<tbody id="tabela">				        
-                            <!-- @foreach($evento->atividades as $valor)
-                                <tr  class="tabble-row odd" role="row">
-                                    <td class="sorting_1">{{ $valor->nome }}</td>
-                                </tr>
-                            @endforeach -->
+                            
                             
                     </tbody>
 			</table>

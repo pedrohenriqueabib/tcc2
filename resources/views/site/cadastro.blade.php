@@ -1,4 +1,4 @@
-@extends('site.layouts.layout')
+@extends('site.layouts.layout2')
 @section('content')
     
     <div class="div_formulario container py-5">
@@ -18,7 +18,7 @@
     </div>
     <div class="formulario">
         <div id="formOrganizador">
-            <form action="{{route('controleCadastro')}}" method="POST">
+            <form action="{{route('saveUser')}}" method="POST">
                 @csrf            
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome Completo do Organizador:</label>
@@ -51,7 +51,7 @@
         </div>
         <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
         <div id="formResponsavel">
-            <form action="{{route('controleCadastro')}}" method="POST">
+            <form action="{{route('saveUser')}}" method="POST">
                 @csrf            
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome Completo do Responsável:</label>
@@ -84,7 +84,7 @@
         </div>
         <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
         <div id="formParticipante">
-            <form action="{{route('controleCadastro')}}" method="POST">
+            <form action="{{route('saveUser')}}" method="POST">
                 @csrf            
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome Completo do Participante:</label>
@@ -113,7 +113,7 @@
         </div>
         <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
         <div id="formColaborador">
-            <form action="{{route('controleCadastro')}}" method="POST">
+            <form action="{{route('saveUser')}}" method="POST">
                 @csrf            
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome Completo do Colaborador:</label>

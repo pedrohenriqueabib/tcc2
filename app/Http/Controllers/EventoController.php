@@ -10,6 +10,11 @@ use App\Models\ComiteOrganizador;
 
 class EventoController extends Controller
 {
+    public function formEvent(){
+        $organizador = '';
+        return redirect()->route('site.criarEvento');
+    }
+
     public function save(Request $request){
         $evento = new Evento();
         $evento->nome = $request->nomeEvento;
@@ -34,11 +39,18 @@ class EventoController extends Controller
  
         $comite_organizador = new ComiteOrganizador();
         $comite_organizador->comite_id = $comite->id;
-        $comite_organizador->organizador_id = $organizador->id;
+        $comite_organizador->organizador_id = $request->organizador_id;
         $comite_organizador->save();
- 
-        return redirect()->route('site.evento');
- 
-        //  return $evento->id;
-     }
+
+        session()->put('idEvento', $evento->id);
+        return redirect()->route('showEvent');
+    }
+
+    public function show(){
+        $id = session('idEvento');
+        $evento = Evento::find($id);
+        $atividade = Atividade::where('evento_id', $id);
+        return view('site.evento', compact('evento', 'atividade'));
+    }
+
 }

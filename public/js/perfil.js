@@ -1,8 +1,12 @@
 let tipoPerfil = document.querySelector('#tipoPerfil');
 let caixa = document.querySelector('.caixa');
+let rotaOrganizador = document.querySelector(".rotaOrganizador");
+rotaOrganizador.style.display = 'none';
 
 if(tipoPerfil.value == 'Organizador'){
-    caixa.innerHTML = '<p><strong>Tipo de Perfil: </strong>Organizador de eventos</p>';
+    caixa.innerHTML = `<p><strong>Tipo de Perfil: </strong>Organizador de eventos</p>`;
+    rotaOrganizador.style.display = '';
+
 }
 
 if(tipoPerfil.value == 'Responsavel'){

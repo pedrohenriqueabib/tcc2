@@ -9,6 +9,10 @@
         <div class="caixa">
             
         </div>
+        <div class="rotaOrganizador">            
+            <p><a href="{{ route('formEvent') }}">Criar Evento</a></p>
+            <!-- <p><a href="">Meu Eventos</a></p> -->
+        </div>
     </div>
    
     

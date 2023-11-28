@@ -6,7 +6,7 @@
 </script>
 @endif
     <div class="container py-5">
-        <form action="{{route('controleCriarEvento')}}" method="POST">
+        <form action="{{route('saveEvent')}}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="organizador" class="form-label">Organizador:</label>

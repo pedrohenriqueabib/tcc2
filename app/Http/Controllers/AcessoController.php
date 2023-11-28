@@ -10,6 +10,7 @@ use App\Models\Organizador;
 use App\Models\Colaborador;
 use App\Models\Participante;
 use App\Models\Responsavel;
+use App\Models\ComiteOrganizador;
 
 class AcessoController extends Controller
 {
@@ -62,10 +63,10 @@ class AcessoController extends Controller
     }
 
     public function signup () { // exibe formulário para cadastro de novo usuario
-
+        return view();
     }
 
-    public function save() { //salva novo usuário
+    public function save(Request $request) { //salva novo usuário
         if( $request->formTipo == 'formOrganizador'){
             $organizador = new Organizador();
             $organizador->nome = $request->nome;
@@ -76,8 +77,10 @@ class AcessoController extends Controller
             // $organizador->senha = $request->password;
             $organizador->save();
 
+            session()->put('token',$request->_token);
             session()->put('nomeUsuario', $request->nome);
             session()->put('emailUsuario', $request->email);
+            session()->put('idUsuario', $organizador->id);
             session()->put('tipoPerfil', 'Organizador');
             
             return redirect('/perfil');
@@ -92,8 +95,10 @@ class AcessoController extends Controller
             // $responsavel->password = $request->password;
             $responsavel->save();
 
+            session()->put('token',$request->_token);
             session()->put('nomeUsuario', $request->nome);
             session()->put('emailUsuario', $request->email);
+            session()->put('idUsuario', $responsavel->id);
             session()->put('tipoPerfil', 'Responsavel');
             
             return redirect('/perfil');
@@ -106,8 +111,10 @@ class AcessoController extends Controller
             // $participante->password = $request->password;
             $participante->save();
 
+            session()->put('token',$request->_token);
             session()->put('nomeUsuario', $request->nome);
             session()->put('emailUsuario', $request->email);
+            session()->put('idUsuario', $participante->id);
             session()->put('tipoPerfil', 'Participante');
             
             return redirect('/perfil');
@@ -121,8 +128,10 @@ class AcessoController extends Controller
             // $colaborador->password = $request->password;
             $colaborador->save();
 
+            session()->put('token',$request->_token);
             session()->put('nomeUsuario', $request->nome);
             session()->put('emailUsuario', $request->email);
+            session()->put('idUsuario', $colaborador->id);
             session()->put('tipoPerfil', 'Colaborador');
             
             return redirect('/perfil');
@@ -136,6 +145,21 @@ class AcessoController extends Controller
     public function logout(){
         Session::flush();
         return view('site.home');
-    }   
+    } 
+
+    public function listEvents(){
+        /*if( session('tipoPerfil') == 'Organizador'){
+            $comite_id = ComiteOrganizador::where('organizador_id', session('idUsuario'))->get('comite_id');
+            if($comite_id){
+                foreach($comite_id as $ci){
+                    
+                }
+                // $organizacao_id = Comite::where('')
+                // return $comite_id;
+            }
+        }
+
+        return view('site.perfil');*/
+    }
 
 }
