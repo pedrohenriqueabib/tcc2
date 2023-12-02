@@ -9,10 +9,17 @@
         <div class="caixa">
             
         </div>
+        
+        @if(!$evento)
         <div class="rotaOrganizador">            
-            <p><a href="{{ route('formEvent') }}">Criar Evento</a></p>
-            <!-- <p><a href="">Meu Eventos</a></p> -->
+            <p><a href="{{ route('formEvent') }}">Criar Evento:+</a></p>
         </div>
+        @else
+        <div>            
+            <p><strong>Evento: </strong>{{$evento->nome}}</p>
+        </div>
+        @endif
+
     </div>
    
     

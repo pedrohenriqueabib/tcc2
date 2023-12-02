@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Evento;
+use App\Models\Atividade;
 use App\Models\Organizacao;
 use App\Models\Comite;
 use App\Models\ComiteOrganizador;
+use App\Models\Organizador;
 
 class EventoController extends Controller
 {
     public function formEvent(){
-        $organizador = '';
+        // $organizador = '';
         return redirect()->route('site.criarEvento');
     }
 
@@ -47,10 +49,22 @@ class EventoController extends Controller
     }
 
     public function show(){
-        $id = session('idEvento');
+        $id = 2;
         $evento = Evento::find($id);
-        $atividade = Atividade::where('evento_id', $id);
-        return view('site.evento', compact('evento', 'atividade'));
+        $organizacao = Organizacao::find($evento->id);
+        $comite = Comite::where('organizacao_id', $organizacao->id)->first(); 
+        $com_org = ComiteOrganizador::where('comite_id', 2)->first();
+        $organizador = Organizador::where('id', $com_org->id)->first();
+
+        return  session('nomeUsuario');
+
+        
+    //     $id = '2';//session('idEvento');
+    //     $evento = Evento::find($id);
+    //     $atividade = Atividade::where('evento_id', $id)->get();
+    //     return view('site.evento', compact('evento', 'atividade'));
+
+        
     }
 
 }

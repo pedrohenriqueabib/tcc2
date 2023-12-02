@@ -73,9 +73,8 @@
 					<thead>
 						<tr role="row">
                             <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nome: activate to sort column ascending" style="width: 225.938px;">Nome</th>
-                            <!-- <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Raça: activate to sort column ascending" style="width: 206.328px;">Raça</th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Cor: activate to sort column ascending" style="width: 172.578px;">Cor</th>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Ação: activate to sort column ascending" style="width: 209.156px;">Ação</th> -->
+                            
+                               
                         </tr>
 					</thead>
 					<tbody id="tabela">				        

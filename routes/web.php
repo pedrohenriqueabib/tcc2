@@ -6,16 +6,6 @@ use App\Http\Controllers\AcessoController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\AtividadeController;
 
-/*
-use App\Http\Controllers\ControleLogin;
-use App\Http\Controllers\ControleCriarAtividade;
-use App\Http\Controllers\ControleCriarEvento;
-use App\Http\Controllers\ControleEvento;
-use App\Http\Controllers\CadastroControle;
-use App\Http\Controllers\ControleLogout;
-*/
-
-
 /**
  * Rotas para AcessoController
  */
@@ -119,10 +109,3 @@ Route::get('/evento', function(){
 Route::get('/criarComite', function(){
     return view('site.criarComite');
 })->name('site.criarComite');
-
-// Route::post('/controleCriarAtividade', [ControleCriarAtividade::class, 'index'])->name('controleCriarAtividade');
-// Route::post('/controleCriarEvento', [ControleCriarEvento::class, 'create'])->name('controleCriarEvento');
-// Route::match(['get', 'post'], '/cadastroControle', [CadastroControle::class, 'create'])->name('controleCadastro');
-// Route::get('/controleLogin', [ControleLogin::class, 'index'])->name('controleLogin');
-// Route::get('/controleEvento', [ControleEvento::class, 'teste'])->name('controleEvento');
-// Route::get('/logout', [ControleLogout::class, 'index'])->name('controleLogout');

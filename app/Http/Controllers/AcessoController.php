@@ -10,7 +10,10 @@ use App\Models\Organizador;
 use App\Models\Colaborador;
 use App\Models\Participante;
 use App\Models\Responsavel;
+use App\Models\Comite;
 use App\Models\ComiteOrganizador;
+use App\Models\Organizacao;
+use App\Models\Evento;
 
 class AcessoController extends Controller
 {
@@ -31,7 +34,10 @@ class AcessoController extends Controller
             session()->put('idUsuario', $organizador->id);
             session()->put('emailUsuario', $organizador->email);
             
-            return redirect()->route('site.home');
+            // return redirect()->route('site.home');
+            return redirect()->route('listEvents');
+
+
         }else if($colaborador){
             session()->put('tipoPerfil', 'Colaborador');
             session()->put('token',$request->_token);
@@ -39,7 +45,9 @@ class AcessoController extends Controller
             session()->put('idUsuario', $colaborador->id);
             session()->put('emailUsuario', $colaborador->email);
             
-            return redirect()->route('site.home');
+            // return redirect()->route('site.home');
+            return redirect()->route('listEvents');
+
         }else if($participante){
             session()->put('tipoPerfil', 'Participante');
             session()->put('token',$request->_token);
@@ -47,7 +55,9 @@ class AcessoController extends Controller
             session()->put('idUsuario', $participante->id);
             session()->put('emailUsuario', $participante->email);
 
-            return redirect()->route('site.home');
+            // return redirect()->route('site.home');
+            return redirect()->route('listEvents');
+
         }else if($responsavel){
             session()->put('tipoPerfil', 'Responsavel');
             session()->put('token',$request->_token);
@@ -55,11 +65,24 @@ class AcessoController extends Controller
             session()->put('idUsuario', $responsavel->id);
             session()->put('emailUsuario', $responsavel->email);
             
-            return redirect()->route('site.home');
+            // return redirect()->route('site.home');
+            return redirect()->route('listEvents');
+
         }else{
             return redirect()->route('site.login', ['erro'=>'nuser']);
         }
         // return 'autenticar ' . $request->email;
+    }
+    
+    public function listEvents(){
+
+        $com_org = ComiteOrganizador::where('organizador_id', session('idUsuario'))->first();
+        $comite = Comite::where('id', $com_org->comite_id)->get();
+        $organizacao = Organizacao::where('id', $comite[0]->organizacao_id)->first();
+        $evento = Evento::find($organizacao->evento_id);
+
+        // return $evento;
+        return view('site.perfil', compact('evento'));
     }
 
     public function signup () { // exibe formulário para cadastro de novo usuario
@@ -146,20 +169,5 @@ class AcessoController extends Controller
         Session::flush();
         return view('site.home');
     } 
-
-    public function listEvents(){
-        /*if( session('tipoPerfil') == 'Organizador'){
-            $comite_id = ComiteOrganizador::where('organizador_id', session('idUsuario'))->get('comite_id');
-            if($comite_id){
-                foreach($comite_id as $ci){
-                    
-                }
-                // $organizacao_id = Comite::where('')
-                // return $comite_id;
-            }
-        }
-
-        return view('site.perfil');*/
-    }
 
 }
