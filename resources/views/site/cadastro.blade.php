@@ -35,11 +35,11 @@
                 </div>            
                 <div class="mb-3">
                     <label for="cargo" class="form-label">Cargo:</label>
-                    <input type="text"  style="width:50%" class="form-control" id="cargo" name="cargo">
+                    <input type="text" maxlength='2' style="width:50%" class="form-control" id="cargo" name="cargo">
                 </div>       
                 <div class="mb-3">
                     <label for="matricula" class="form-label">Matrícula:</label>
-                    <input type="text" style="width:50%" class="form-control" id="matricula" name="matricula">
+                    <input type="text" maxlength='5' style="width:50%" class="form-control" id="matricula" name="matricula">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password:</label>

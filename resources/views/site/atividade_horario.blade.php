@@ -1,8 +1,9 @@
 @extends('site.layouts.layout')
 @section('content')
 <div class="container py-5">
+    <p><a href='{{route("criarHorario")}}'>Adicionar Horário:+</a></p>
     @foreach($atividade_horario as $valor)
-        <form action="" method="post">
+        <!-- <form action="" method="post">
             @csrf
             <div class="mb-3">
                 <label for="nomeLocal" class="form-label">Nome do Local:*</label>
@@ -17,21 +18,6 @@
                 <label for="area" class="form-label">Bloco:*</label>
                 <input type="text" value="{{$valor->local->bloco}}" name="bloco" style="width:50%" class="form-control" id="bloco" >
             </div>
-            @php
-                $data = \Illuminate\Support\Carbon::parse($valor->horario->inicio);
-                $d = $data->translatedFormat('l');
-                $diaSemana = [
-                    "Sunday"=>"DOM", 
-                    "Monday"=>"SEG", 
-                    "Tuesday" => "TER", 
-                    "Wednesday" => "QUA",
-                    "Thursday" => "QUI",
-                    "Friday" =>"SEX",
-                    "Saturday" => "SAB"
-                ];
-                $diaSemana = $diaSemana[$d];
-
-            @endphp
             <div class="mb-3">
                 <label for="dia_semana" class="form-label">Dia da Semana:*</label>
                 <input type="text" value='{{$diaSemana}}' name="dia_semana" style="width:5%" class="form-control" id="dia_semana" disabled>
@@ -51,7 +37,7 @@
 
             <button type="submit" class="btn btn-primary">Editar</button>
             <button type="reset" class="btn btn-primary">Resetar</button>
-        </form>
+        </form> -->
     @endforeach
     </div>
 @endsection

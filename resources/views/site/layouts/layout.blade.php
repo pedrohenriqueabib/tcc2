@@ -12,7 +12,7 @@
             <div class="navbar navbar-dark bg-dark shadow-sm">
                 <div class="container">
                     <div class="home">
-                        <a href="{{ route('site.home') }}" class="navbar-brand d-flex align-items-center">
+                        <a href="{{ route('home') }}" class="navbar-brand d-flex align-items-center">
                             Home
                         </a>
                     </div>
@@ -20,7 +20,7 @@
                         <ul class="navbar-nav ml-auto mt-3 mt-sm-0 flex-row">
                         @if( session()->has('token'))
                             <li class="nav-item dropdown px-2 py-1 py-sm-0">
-                                <a href="{{ route('listEvents') }}" class="navbar-brand d-flex align-items-center">
+                                <a href="{{ route('showPerfil') }}" class="navbar-brand d-flex align-items-center">
                                     {{ session('nomeUsuario') }}
                                 </a>
                             </li>

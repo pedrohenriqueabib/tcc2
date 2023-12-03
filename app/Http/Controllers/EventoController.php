@@ -49,20 +49,17 @@ class EventoController extends Controller
     }
 
     public function show(){
-        $id = 2;
+        $id = session('idEvento');
         $evento = Evento::find($id);
         $organizacao = Organizacao::find($evento->id);
         $comite = Comite::where('organizacao_id', $organizacao->id)->first(); 
-        $com_org = ComiteOrganizador::where('comite_id', 2)->first();
-        $organizador = Organizador::where('id', $com_org->id)->first();
+        $comite_organizador = ComiteOrganizador::where('comite_id', $comite->id)->first();
+        $organizador = Organizador::where('id', $comite_organizador->id)->first();
+        $atividade = Atividade::where('evento_id', $id)->get();
 
-        return  session('nomeUsuario');
-
-        
-    //     $id = '2';//session('idEvento');
-    //     $evento = Evento::find($id);
-    //     $atividade = Atividade::where('evento_id', $id)->get();
-    //     return view('site.evento', compact('evento', 'atividade'));
+        return view('site.evento', compact(
+            'evento', 'organizacao','comite','comite_organizador','organizador','atividade'
+        ));
 
         
     }

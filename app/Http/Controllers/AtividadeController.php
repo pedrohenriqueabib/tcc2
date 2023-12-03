@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Atividade;
 use App\Models\AtividadeHorario;
+use App\Models\Responsavel;
 
 class AtividadeController extends Controller
 {
-    public function create(Request $request){
-         /*
+    public function save(Request $request){        
         $atividade = new Atividade;
         $atividade->nome = $request->nomeAtividade;
         $atividade->descricao = $request->descricaoAtividade;
@@ -17,9 +17,46 @@ class AtividadeController extends Controller
         $atividade->area = $request->areaAtividade;
         $atividade->subarea = $request->subareaAtividade;
         $atividade->carga_horaria = $request->cargaHoraria;
-        $atividade_evento_id = $request->eventoId;
-        */
-        return $request->post('_token');
+        $atividade->evento_id = $request->eventoId;
+        $atividade->responsavel_id = $request->responsavelAtividade;
+        $atividade->save();
+        // //==========================================================
+        
+        // $d = date('l', strtotime($request->inicio));
+        // $dia_de_semana = [
+        //     'Sunday' => 'DOM', 
+        //     'Monday'=>"SEG", 
+        //     'Tuesday' => 'TER', 
+        //     'Wednesday' => 'QUAR', 
+        //     "Thursday" => "QUI",
+        //     "Friday" => "SEX",
+        //     "Saturday" => "SAB"
+        // ];
+
+        // $horario->dia_semana = $dia_de_semana[$d];
+        // $horario->inicio = $request->inicio;
+        // $horario->fim = $request->fim;
+        // $horario->carga_horaria = $request->cargaHoraria;
+        // $horario->save();
+        // //===================================================================
+        // $local->nome = $request->nomeLocal;
+        // $local->pavimento = $request->pavimento;
+        // $local->bloco = $request->bloco;
+        // $local->save();
+
+        // $atividade_horario->atividade_id = $atividade->id;
+        // $atividade_horario->local_id = $local->id;
+        // $atividade_horario->horario_id = $horario->id;
+
+        // return redirect()->route('showAtividade', ['id' => $atividade->id]);
+        return redirect()->route('showEvent');
+    }
+
+    public function criarAtividade(){
+        $responsavel = Responsavel::all();
+        
+        return view('site.criarAtividade', compact('responsavel'));
+        
     }
 
     public function showAtividade($id){
@@ -44,5 +81,9 @@ class AtividadeController extends Controller
         $atividade_horario = AtividadeHorario::with('Local', 'Horario')->where('atividade_id', $id)->get();
 
         return view('site.atividade_horario', compact('atividade_horario'));
+    }
+
+    public function criarHorario($id){
+        return $id;
     }
 }

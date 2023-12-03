@@ -21,6 +21,19 @@ class AcessoController extends Controller
         return view('site.login');
     }
 
+    public function home(){
+        $evento = Evento::latest('id')->first();
+        $organizacao = Organizacao::where('evento_id', $evento->id)->first();
+        $comite = Comite::where('organizacao_id', $organizacao->id)->first();
+        $comite_organizador = ComiteOrganizador::where('comite_id', $comite->id)->get();
+        $organizador = Organizador::where('id', $comite_organizador[0]->organizador_id)->get();
+
+        session()->put('idEvento', $evento->id);
+        session()->put('nomeEvento', $evento->nome);
+        
+        return view('site.home', compact('evento','organizacao','comite','comite_organizador','organizador'));
+    }
+
     public function auth(Request $request) { // autenticar o usuario
         $organizador = Organizador::where('email', $request->email)->first();//->where('password', $request->password)->first();
         $colaborador = Colaborador::where('email', $request->email)->first();//->where('password', $request->password)->first();
@@ -35,7 +48,7 @@ class AcessoController extends Controller
             session()->put('emailUsuario', $organizador->email);
             
             // return redirect()->route('site.home');
-            return redirect()->route('listEvents');
+            return redirect()->route('showPerfil');
 
 
         }else if($colaborador){
@@ -46,7 +59,7 @@ class AcessoController extends Controller
             session()->put('emailUsuario', $colaborador->email);
             
             // return redirect()->route('site.home');
-            return redirect()->route('listEvents');
+            return redirect()->route('showPerfil');
 
         }else if($participante){
             session()->put('tipoPerfil', 'Participante');
@@ -56,7 +69,7 @@ class AcessoController extends Controller
             session()->put('emailUsuario', $participante->email);
 
             // return redirect()->route('site.home');
-            return redirect()->route('listEvents');
+            return redirect()->route('showPerfil');
 
         }else if($responsavel){
             session()->put('tipoPerfil', 'Responsavel');
@@ -66,7 +79,7 @@ class AcessoController extends Controller
             session()->put('emailUsuario', $responsavel->email);
             
             // return redirect()->route('site.home');
-            return redirect()->route('listEvents');
+            return redirect()->route('showPerfil');
 
         }else{
             return redirect()->route('site.login', ['erro'=>'nuser']);
@@ -74,20 +87,21 @@ class AcessoController extends Controller
         // return 'autenticar ' . $request->email;
     }
     
-    public function listEvents(){
+    public function showPerfil(){
 
-        $com_org = ComiteOrganizador::where('organizador_id', session('idUsuario'))->first();
-        $comite = Comite::where('id', $com_org->comite_id)->get();
-        $organizacao = Organizacao::where('id', $comite[0]->organizacao_id)->first();
-        $evento = Evento::find($organizacao->evento_id);
+        // $com_org = ComiteOrganizador::where('organizador_id', session('idUsuario'))->first();
+        // $comite = Comite::where('id', $com_org->comite_id)->get();
+        // $organizacao = Organizacao::where('id', $comite[0]->organizacao_id)->first();
+        // $evento = Evento::find($organizacao->evento_id);
 
+        // return session('idUsuario');
         // return $evento;
-        return view('site.perfil', compact('evento'));
+        return view('site.perfil');
     }
 
-    public function signup () { // exibe formulário para cadastro de novo usuario
-        return view();
-    }
+    // public function signup () { // exibe formulário para cadastro de novo usuario
+    //     return view();
+    // }
 
     public function save(Request $request) { //salva novo usuário
         if( $request->formTipo == 'formOrganizador'){
@@ -167,7 +181,7 @@ class AcessoController extends Controller
 
     public function logout(){
         Session::flush();
-        return view('site.home');
+        return redirect()->route('home');
     } 
 
 }

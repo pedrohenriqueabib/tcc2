@@ -1,15 +1,15 @@
 @extends('site.layouts.layout')
 @section('content')
 <div class="container py-5">
-        <form action="{{route('controleCriarAtividade')}}" method="post">
+        <form action="{{route('salvarAtividade')}}" method="post">
             @csrf
             <div class="mb-3">
                 <label for="eventoAtividade" class="form-label">Evento da Atividade:*</label>
                 A implementar
-                <!-- 
-                <input type="text" name="eventoAtividade" value="" style="width:50%" class="form-control" id="eventoAtividade" >
-                <input type="hidden" name="eventoId" value="" style="width:50%" class="form-control" id="eventoId" >
-                 -->
+                
+                <input type="text" name="eventoAtividade" value="{{session('nomeEvento')}}" style="width:50%" class="form-control" id="eventoAtividade" disabled>
+                <input type="hidden" name="eventoId" value="{{session('idEvento')}}" style="width:50%" class="form-control" id="eventoId">
+                
             </div>
             <div class="mb-3">
                 <label for="nomeAtividade" class="form-label">Nome da Atividade:*</label>
@@ -17,7 +17,12 @@
             </div>
             <div class="mb-3">
                 <label for="responsavel" class="form-label">Responsavel:*</label>
-                A implementar.
+                <select name="responsavelAtividade" id="responsavelAtividade">
+                    <option selected disabled>Selecionar</option>
+                    @foreach( $responsavel as $valor)
+                        <option value="{{$valor->id}}">{{$valor->nome}}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="mb-3">
                 <label for="descricao" class="form-label">Descricao da Atividade:*</label>
@@ -39,18 +44,31 @@
             </div>
             <div class="mb-3">
                 <label for="cargaHoraria" class="form-label">Carga Horaria:*</label>
-                <input type="text" name="cargaHoraria" style="width:50%" class="form-control" id="cargaHoraria" >
+                <input type="text" name="cargaHoraria" style="width:8%" class="form-control" id="cargaHoraria" >
             </div>
-            <!-- <div class="mb-3">
-                <label for="dataAtividade" class="form-label">Data da Atividade:</label>
-                <input type="date" style="width:11%" class="form-control" id="dataAtividade">
+            <!--
+            <div class="mb-3">
+                <label for="nomeLocal" class="form-label">Nome do Local:*</label>
+                <input type="text" name="nomeLocal" style="width:50%" class="form-control" id="nomeLocal" >
             </div>
             <div class="mb-3">
-                <label for="horaInicioAtividade" class="form-label">Início:</label>
-                <input type="time" style="width:10%" class="form-control" id="horaInicioAtividade">
-                <label for="horaTérminoAtividade" class="form-label">Término:</label>
-                <input type="time" style="width:10%" class="form-control" id="horaTerminoAtividade">
-            </div> -->
+                <label for="pavimento" class="form-label">Pavimento:*</label>
+                <input type="text" name="pavimento" style="width:50%" class="form-control" id="pavimento" >
+            </div>
+            <div class="mb-3">
+                <label for="bloco" class="form-label">Bloco:*</label>
+                <input type="text" name="bloco" style="width:50%" class="form-control" id="bloco" >
+            </div>
+            =============================Horário==================================
+            <div class="mb-3">
+                <label for="inicio" class="form-label">Inicío:*</label>
+                <input type="date" name="inicio" style="width:12%" class="form-control" id="inicio" >
+            </div>
+            <div class="mb-3">
+                <label for="fim" class="form-label">Fim:*</label>
+                <input type="date" name="fim" style="width:12%" class="form-control" id="fim" >
+            </div>-->
+            
 
             <button type="submit" class="btn btn-primary">Criar Atividade</button>
             <button type="reset" class="btn btn-primary">Resetar</button>

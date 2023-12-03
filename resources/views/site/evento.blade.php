@@ -67,19 +67,22 @@
     
         <div class="tab-pane fade" id="content2" role="tabpanel" aria-labelledby="tab2">      
             <div class="container py-5">
-            Atividades Relacionadas: <a href="{{route('site.criarAtividade')}}">+</a>
-
+            Atividades Relacionadas: <a href="{{route('criarAtividade')}}">+</a>
             <table class="table table-bordered table-striped mb-none dataTable no-footer" role="grid" aria-describedby="datatable-default_info">
 					<thead>
 						<tr role="row">
                             <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nome: activate to sort column ascending" style="width: 225.938px;">Nome</th>
-                            
-                               
+                            <!-- <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nome: activate to sort column ascending" style="width: 225.938px;">local</th>
+                            <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Nome: activate to sort column ascending" style="width: 225.938px;">horario</th> -->
                         </tr>
 					</thead>
-					<tbody id="tabela">				        
-                            
-                            
+					<tbody id="tabela">
+                    @foreach($atividade as $valor)
+                        <tr>
+                            <td class='sorting_1'><a href='{{route("showAtividade", ["id"=>$valor->id])}}'>{{$valor->nome}}</a></td>
+                        </tr>
+                    @endforeach
+                    
                     </tbody>
 			</table>
 

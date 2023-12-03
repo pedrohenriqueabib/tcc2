@@ -10,16 +10,12 @@
             
         </div>
         
-        @if(!$evento)
         <div class="rotaOrganizador">            
-            <p><a href="{{ route('formEvent') }}">Criar Evento:+</a></p>
+            <p><a href="{{ route('formEvent') }}">Criar Novo Evento:+</a></p>
         </div>
-        @else
-        <div>            
-            <p><strong>Evento: </strong>{{$evento->nome}}</p>
+        <div class="eventoAtual">
+            <p><strong>Meu Evento: </strong><a href='{{route("showEvent")}}'>{{session('nomeEvento')}}</a></p>
         </div>
-        @endif
-
     </div>
    
     

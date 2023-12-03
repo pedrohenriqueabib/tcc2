@@ -12,7 +12,7 @@ use App\Http\Controllers\AtividadeController;
 Route::prefix('acesso')->group(function () {
 
     //Rota exibir eventos do usuário
-    Route::get('/listEvents', [AcessoController::class, 'listEvents'])->name('listEvents');
+    Route::get('/showPerfil', [AcessoController::class, 'showPerfil'])->name('showPerfil');
 
     // Rota para autenticar usuario
     Route::get('/login', [AcessoController::class, 'login'])->name('login');
@@ -57,8 +57,10 @@ Route::prefix('evento')->group( function(){
 });
 
 Route::prefix('atividade')->group( function (){
-    // Rota para criar atividade
-    Route::post('saveActivity', [AtividadeController::class, 'save'])->name('saveActivity');
+    //Rota para exibir formulário de criação de atividade
+    Route::get('criarAtividade', [AtividadeController::class, 'criarAtividade'])->name('criarAtividade');
+    // Rota para salvar a atividade a ser criada
+    Route::post('salvarAtividade', [AtividadeController::class, 'save'])->name('salvarAtividade');
 
     //Rota para atualizar
     Route::post('updateAtividade', [AtividadeController::class, 'updateAtividade'])->name('updateAtividade');
@@ -68,9 +70,14 @@ Route::prefix('atividade')->group( function (){
 
     //Rota para exibir horários
     Route::get('showAtividadeHorario/{id}', [AtividadeController::class, 'showAtividadeHorario'])->name('showAtividadeHorario');
+
+    //Rota para definir os horários da atividade
+    Route::post('criarHorario', [HorarioController::class, 'criarHorario'])->name('criarHorario');
 });
 
-Route::get('/', function(){
+Route::get('/', [AcessoController::class, 'home'])->name('home');
+
+Route::get('/home', function(){
     return view('site.home');
 })->name('site.home');
 
