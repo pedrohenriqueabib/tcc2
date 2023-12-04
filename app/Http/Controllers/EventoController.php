@@ -52,10 +52,14 @@ class EventoController extends Controller
         $id = session('idEvento');
         $evento = Evento::find($id);
         $organizacao = Organizacao::find($evento->id);
-        $comite = Comite::where('organizacao_id', $organizacao->id)->first(); 
-        $comite_organizador = ComiteOrganizador::where('comite_id', $comite->id)->first();
-        $organizador = Organizador::where('id', $comite_organizador->id)->first();
-        $atividade = Atividade::where('evento_id', $id)->get();
+        $comite = Comite::where('organizacao_id', $organizacao->id)->get();
+        $comite_organizador = [];
+        // foreach($comite as $valor){
+            $comite_organizador = ComiteOrganizador::where('comite_id',$comite[0]->id)->get();
+        // }
+
+        $organizador = Organizador::where('id', $comite_organizador[0]->id)->get();
+        $atividade = Atividade::where('evento_id', session('idEvento'))->get();  
 
         return view('site.evento', compact(
             'evento', 'organizacao','comite','comite_organizador','organizador','atividade'

@@ -2,7 +2,7 @@
 @section('content')
 <div class="container py-5">
     @foreach($atividade as $valor)
-    <p>Evento ao qual pertence: {{$valor->evento->nome}}</p>
+    <p>Evento ao qual pertence: <a href='{{route("showEvent")}}'>{{$valor->evento->nome}}</a></p>
     <p>Responsável: {{$valor->responsavel->nome}}</p>
         <form action="{{route('updateAtividade')}}" method="post">
             @csrf

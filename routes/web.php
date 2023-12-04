@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AcessoController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\AtividadeController;
+use App\Http\Controllers\ComiteController;
 
 /**
  * Rotas para AcessoController
@@ -31,6 +32,8 @@ Route::prefix('acesso')->group(function () {
 
     // Rota para sair da sessão
     Route::get('/logout', [AcessoController::class, 'logout'])->name('logout');
+
+    Route::get('/', [AcessoController::class, 'home'])->name('home');
 
     // Rota para atualizar um funcionário existente (via método PUT)
     //Route::put('/', [FuncionariosController::class, 'update']);
@@ -75,7 +78,14 @@ Route::prefix('atividade')->group( function (){
     Route::post('criarHorario', [HorarioController::class, 'criarHorario'])->name('criarHorario');
 });
 
-Route::get('/', [AcessoController::class, 'home'])->name('home');
+Route::prefix('comite')->group( function(){
+
+    Route::get('formComite/{id}', [ComiteController::class, 'formComite'])->name('formComite');
+
+    Route::post('salvarComite', [ComiteController::class, 'salvarComite'])->name('salvarComite');
+
+    
+});
 
 Route::get('/home', function(){
     return view('site.home');
@@ -113,6 +123,6 @@ Route::get('/evento', function(){
     return view('site.evento');
 })->name('site.evento');
 
-Route::get('/criarComite', function(){
+Route::get('/criarComite/{id}', function(){
     return view('site.criarComite');
 })->name('site.criarComite');
