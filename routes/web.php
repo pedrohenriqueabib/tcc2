@@ -33,7 +33,6 @@ Route::prefix('acesso')->group(function () {
     // Rota para sair da sessão
     Route::get('/logout', [AcessoController::class, 'logout'])->name('logout');
 
-    Route::get('/', [AcessoController::class, 'home'])->name('home');
 
     // Rota para atualizar um funcionário existente (via método PUT)
     //Route::put('/', [FuncionariosController::class, 'update']);
@@ -75,7 +74,10 @@ Route::prefix('atividade')->group( function (){
     Route::get('showAtividadeHorario/{id}', [AtividadeController::class, 'showAtividadeHorario'])->name('showAtividadeHorario');
 
     //Rota para definir os horários da atividade
-    Route::post('criarHorario', [HorarioController::class, 'criarHorario'])->name('criarHorario');
+    Route::get('criarHorario/{id}', [AtividadeController::class, 'criarHorario'])->name('criarHorario');
+
+    //Rota para salvar o horario
+    Route::post('salvarHorario', [AtividadeController::class, 'salvarHorario'])->name('salvarHorario');
 });
 
 Route::prefix('comite')->group( function(){
@@ -87,10 +89,13 @@ Route::prefix('comite')->group( function(){
     
 });
 
+Route::get('/', [AcessoController::class, 'home'])->name('home');
+
 Route::get('/home', function(){
     return view('site.home');
 })->name('site.home');
 
+//Rota da página onde os horários serão exibidos
 Route::get('/atividade_horario', function(){
     return view('site.atividade_horario');
 })->name('site.atividade_horario');
