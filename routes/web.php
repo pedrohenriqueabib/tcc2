@@ -82,15 +82,21 @@ Route::prefix('atividade')->group( function (){
 
 Route::prefix('comite')->group( function(){
 
+    //Rota para formulário para criar comitê
     Route::get('formComite/{id}', [ComiteController::class, 'formComite'])->name('formComite');
 
+    //Rota para "salvar" o comitê no banco de dados
     Route::post('salvarComite', [ComiteController::class, 'salvarComite'])->name('salvarComite');
 
+    //Rota para visualizar detalhes do comitê
+    Route::get('showComite/{id}', [ComiteController::class, 'showComite'])->name('showComite');
     
 });
 
+//Rota para uma controller que irá redicrecionar para a view da página inicial 
 Route::get('/', [AcessoController::class, 'home'])->name('home');
 
+//Rota para a página inicial
 Route::get('/home', function(){
     return view('site.home');
 })->name('site.home');
@@ -100,34 +106,47 @@ Route::get('/atividade_horario', function(){
     return view('site.atividade_horario');
 })->name('site.atividade_horario');
 
+//Rota para a página de login
 Route::get('/login', function(){
     return view('site.login');
 })->name('site.login');
 
+//Rota para a página de cadastro
 Route::get('/cadastro', function(){
     return view('site.cadastro');
 })->name('site.cadastro');
 
+//Rota para a página de criação de eventos
 Route::get('/criarEvento', function(){
     return view('site.criarEvento');
 })->name('site.criarEvento');
 
+//Rota para criar Atividades
 Route::get('/criarAtividade', function(){
     return view('site.criarAtividade');
 })->name('site.criarAtividade');
 
+//Rota para visualizar o perfil do usuário
 Route::get('/perfil', function(){
     return view('site.perfil');
 })->name('site.perfil');
 
+//Rota para visualizar os detalhes de uma atividade
 Route::get('/atividade', function(){
     return view('site.atividade');
 })->name('site.atividade');
 
+//Rota para visualizar detalhes de um evento
 Route::get('/evento', function(){
     return view('site.evento');
 })->name('site.evento');
 
+//Rota para criação de comitê
 Route::get('/criarComite/{id}', function(){
     return view('site.criarComite');
 })->name('site.criarComite');
+
+//
+Route::get('/comite', function(){
+    return view('site.comite');
+})->name('site.comite');

@@ -74,12 +74,15 @@
         <div>
             <div class="tab-pane fade" id="content2" role="tabpanel" aria-labelledby="tab2">
                 <div class="container py-5">
-                    <p>Comitês: <a href='{{route("formComite", ["id"=>$organizacao->id])}}'>+</a></p>
-                    <table>
+                    <p><a href='{{route("formComite", ["id"=>$organizacao->id])}}'>Adicionar Comitê: +</a></p>
+                    <table class="table table-bordered table-striped mb-none dataTable no-footer" id="datatable-default" role="grid" aria-describedby="datatable-default_info">
                         <thead>
                             <tr>
                                 <th>
-                                    Nome:
+                                    Nome
+                                </th>
+                                <th>
+                                    Descrição
                                 </th>
                             </tr>
                         </thead>
@@ -87,7 +90,10 @@
                         @foreach($comite as $valor)
                             <tr>
                                 <td>
-                                {{$valor->nome}}
+                                    <a href="{{route('showComite', ['id'=>$valor->id])}}">{{$valor->nome}}</a>
+                                </td>
+                                <td>
+                                    {{$valor->descricao}} 
                                 </td>
                             </tr>
                         @endforeach
@@ -104,12 +110,23 @@
                     Atividades Relacionadas: <a href="{{route('criarAtividade')}}">+</a>
                     <table class="table table-bordered table-striped mb-none dataTable no-footer" id="datatable-default" role="grid" aria-describedby="datatable-default_info">
 						<thead>
-                            <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Nome: " style="width: 206.328px;">Nome</th>
+                            <tr>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Nome: " style="width: 206.328px;">Nome</th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Descrição: " style="width: 206.328px;">Descrição</th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Área: " style="width: 206.328px;">Área</th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Subarea: " style="width: 206.328px;">Subarea</th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Palavras Chaves: " style="width: 206.328px;">Palavras Chaves</th>
+                            </tr>
                         </thead>
 						<tbody id="tabela">                    
                             @foreach($atividade as $valor)
                                 <tr>
                                     <td><a href='{{route("showAtividade", ["id"=>$valor->id])}}'>{{$valor->nome}}</a></td>
+                                
+                                    <td>{{$valor->descricao}}</td>
+                                    <td>{{$valor->area}}</td>
+                                    <td>{{$valor->subarea}}</td>
+                                    <td>{{$valor->palavras_chaves}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -35,4 +35,10 @@ class ComiteController extends Controller
 
         return redirect()->route('showEvent');
     }
+
+    public function showComite($id){
+        $comite = Comite::where('id', $id)->first();
+        return view('site.comite', compact('comite'));
+        // return $id;
+    }
 }

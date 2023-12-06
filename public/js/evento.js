@@ -6,6 +6,12 @@ let content1 = document.querySelector('#content1');
 let content2 = document.querySelector('#content2');
 let content3 = document.querySelector('#content3');
 
+window.addEventListener('load', ()=>{
+    content1.style.display = '';
+    content2.style.display = 'none';
+    content3.style.display = 'none';
+});
+
 tab1.addEventListener('click', ()=>{
     content1.style.display = '';
     content2.style.display = 'none';
