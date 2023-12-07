@@ -98,10 +98,6 @@
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
                     <input type="email"  style="width:50%" class="form-control" name="email" id="email">
-                </div>            
-                <div class="mb-3">
-                    <label for="cargo" class="form-label">Cargo:</label>
-                    <input type="text"  style="width:50%" class="form-control" id="cargo" name="cargo">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password:</label>

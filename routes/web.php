@@ -88,9 +88,11 @@ Route::prefix('comite')->group( function(){
     //Rota para "salvar" o comitê no banco de dados
     Route::post('salvarComite', [ComiteController::class, 'salvarComite'])->name('salvarComite');
 
-    //Rota para visualizar detalhes do comitê
+    //Rota para coletar detalhes do comitê
     Route::get('showComite/{id}', [ComiteController::class, 'showComite'])->name('showComite');
     
+    //Rota para coletar membros do comitê
+    Route::get('showComiteMembros/{id}', [ComiteController::class, 'showMembrosComite'])->name('showMembrosComite');
 });
 
 //Rota para uma controller que irá redicrecionar para a view da página inicial 
@@ -146,7 +148,12 @@ Route::get('/criarComite/{id}', function(){
     return view('site.criarComite');
 })->name('site.criarComite');
 
-//
+//Rota para exibição de dados do comitê
 Route::get('/comite', function(){
     return view('site.comite');
 })->name('site.comite');
+
+//Rota para visualizar membros do comitê
+Route::get('/membrosComite', function(){
+    return view('membrosComite');
+})->name('site.membrosComite');

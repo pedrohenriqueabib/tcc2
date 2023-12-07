@@ -142,7 +142,7 @@ class AcessoController extends Controller
 
         }else if($request->formTipo == 'formParticipante'){
             $participante = new Participante();
-            $participante->nome = $request->participante;
+            $participante->nome = $request->nome;
             $participante->telefone = $request->telefone;
             $participante->email = $request->email;
             // $participante->password = $request->password;
