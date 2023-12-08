@@ -19,7 +19,7 @@
         </div>
         
         <div class="minhasInscricoes">
-            <p><a href="">Minhas Inscricões</a></p>
+            <p><a href="{{route('showInscricao')}}">Minhas Inscricões</a></p>
         </div>
     </div>
    

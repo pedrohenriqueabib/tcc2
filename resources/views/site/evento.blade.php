@@ -1,8 +1,8 @@
 @extends('site.layouts.layout')
 @section('content')
 
-    <!-- {{$organizador[0]->nome}} -->
     <div class="container mt-5">
+        {{$evento->id}}
         <ul class="nav nav-tabs" id="myTabs" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="tab1" data-bs-toggle="tab" href="#content1" role="tab" aria-controls="content1" aria-selected="true">Evento</a>
@@ -107,7 +107,8 @@
         <div>
             <div class="tab-pane fade" id="content3" role="tabpanel" aria-labelledby="tab3">      
                 <div class="container py-5">
-                    Atividades Relacionadas: <a href="{{route('criarAtividade')}}">+</a>
+                    
+                    Atividades Relacionadas: <a href="{{route('criarAtividade', ['id'=>$evento->id])}}">+</a>
                     <table class="table table-bordered table-striped mb-none dataTable no-footer" id="datatable-default" role="grid" aria-describedby="datatable-default_info">
 						<thead>
                             <tr>

@@ -8,6 +8,7 @@ use App\Models\AtividadeHorario;
 use App\Models\Responsavel;
 use App\Models\Horario;
 use App\Models\Local;
+use App\Models\Evento;
 
 class AtividadeController extends Controller
 {
@@ -54,10 +55,12 @@ class AtividadeController extends Controller
         return redirect()->route('showEvent');
     }
 
-    public function criarAtividade(){
+    public function criarAtividade($id){
         $responsavel = Responsavel::all();
+        $evento = Evento::where("id", $id)->first();
         
-        return view('site.criarAtividade', compact('responsavel'));
+        return view('site.criarAtividade', compact('responsavel', 'evento'));
+        // return $id;
         
     }
 

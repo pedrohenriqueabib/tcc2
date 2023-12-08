@@ -68,4 +68,23 @@ class EventoController extends Controller
         
     }
 
+    public function visualizarEvento($id){
+        $evento = Evento::where('id', $id)->first();
+        $atividade = Atividade::where('evento_id', $id)->get();
+        $organizacao = Organizacao::where('evento_id', $id)->first();
+        $comite = Comite::where('organizacao_id', $organizacao->id)->get();
+
+        foreach($comite as $valor){
+            $comite_organizador[] = ComiteOrganizador::where('comite_id', $valor->id)->get();
+        }
+
+        foreach ($comite_organizador as $valor) {
+            echo $valor."<br>";
+        }
+        
+
+        // return $comite_organizador;
+        // return $id;
+    }
+
 }

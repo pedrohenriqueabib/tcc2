@@ -28,7 +28,7 @@
                         <p class="card-text" id='descricao de evento'>{{$evento->descricao}}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Visualizar</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary"><a href='{{route("visualizarEvento", ["id"=>$evento->id])}}'>Visualizar</a></button>
                                 <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
                             </div>
                             <!-- <small class="text-body-secondary">9 mins</small> -->

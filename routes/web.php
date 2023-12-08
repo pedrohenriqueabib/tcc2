@@ -6,6 +6,7 @@ use App\Http\Controllers\AcessoController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\ComiteController;
+use App\Http\Controllers\InscricaoController;
 
 /**
  * Rotas para AcessoController
@@ -54,13 +55,14 @@ Route::prefix('evento')->group( function(){
     // Rota para atualizar evento
     Route::post('/updateEvent', [EventoController::class, 'update'])->name('updateEvent');
 
-
+    //Rota para o participante visualizar o evento
+    Route::get('/visualizarEvento/{id}',[EventoController::class, 'visualizarEvento'])->name('visualizarEvento');
 
 });
 
 Route::prefix('atividade')->group( function (){
     //Rota para exibir formulário de criação de atividade
-    Route::get('criarAtividade', [AtividadeController::class, 'criarAtividade'])->name('criarAtividade');
+    Route::get('criarAtividade/{id}', [AtividadeController::class, 'criarAtividade'])->name('criarAtividade');
     // Rota para salvar a atividade a ser criada
     Route::post('salvarAtividade', [AtividadeController::class, 'save'])->name('salvarAtividade');
 
@@ -95,8 +97,18 @@ Route::prefix('comite')->group( function(){
     Route::get('showComiteMembros/{id}', [ComiteController::class, 'showMembrosComite'])->name('showMembrosComite');
 });
 
+Route::prefix('inscricao')->group(function(){
+    //Routa para o participante se inscrever
+    Route::get('showInscricao', [InscricaoController::class, 'showInscricao'])->name('showInscricao');
+});
+
 //Rota para uma controller que irá redicrecionar para a view da página inicial 
 Route::get('/', [AcessoController::class, 'home'])->name('home');
+
+//Rota para a página para visuzalizar evento
+Route::get('/visualizarEvento', function(){
+    return view('site.visualizarEvento');
+})->name('site.visualizarEvento');
 
 //Rota para a página inicial
 Route::get('/home', function(){
