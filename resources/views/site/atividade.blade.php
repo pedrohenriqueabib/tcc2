@@ -30,7 +30,12 @@
                 <input type="text" value='{{$valor->carga_horaria}}' name="cargaHoraria" style="width:50%" class="form-control" id="cargaHoraria" >
             </div>
             <div>
-                <p><a href="{{route('showAtividadeHorario', ['id'=>$valor->id])}}">Horários</a></p>
+                <p>
+                    <a href="{{route('showAtividadeHorario', ['id'=>$valor->id])}}">Horários</a>
+                </p>
+                <p>
+                    <a href="{{route('showColaboradores', ['id'=>$valor->id])}}">Colaboradores</a>
+                </p>
             </div>
             
 

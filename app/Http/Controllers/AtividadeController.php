@@ -9,6 +9,8 @@ use App\Models\Responsavel;
 use App\Models\Horario;
 use App\Models\Local;
 use App\Models\Evento;
+use App\Models\Colaborador;
+use App\Models\ColaboradorAtividade;
 
 class AtividadeController extends Controller
 {
@@ -90,7 +92,6 @@ class AtividadeController extends Controller
     }
 
     public function criarHorario($id){
-        // return $id;
         return view('site.criarHorario', ['idAtividade'=>$id]);
     }
 
@@ -127,5 +128,49 @@ class AtividadeController extends Controller
         $atividade_horario->save();
 
         return redirect()->route('showAtividade', ['id'=>$request->idAtividade]);
+    }
+
+    public function showColaboradores($id){
+        $atividade = Atividade::where('id', $id)->first();
+        $colaborador_atividade = ColaboradorAtividade::where('atividade_id', $atividade->id)->get();
+        $colaborador = Colaborador::all();
+
+        if(!empty($colaborador_atividade))
+        {
+            $selecionados = [];
+            // $selecionados = Colaborador::where('colaborador_id', $colaborador_atividade[0]->colaborador_id)->get();
+            foreach ($colaborador_atividade as $valor) {
+                array_push($selecionados, Colaborador::where('id', $valor->colaborador_id)->get());
+            }
+            // return $selecionados;
+            return view('site.showColaboradores', compact('atividade', 'colaborador', 'selecionados'));
+        }else{
+            return view('site.showColaboradores', compact('atividade', 'colaborador'));
+        }
+    }
+
+    public function adicionarColaborador(Request $request){        
+        $listaIds = ColaboradorAtividade::where('atividade_id', $request->idAtividade)->get('colaborador_id');
+        $lista = explode(',',$request->listaSelect);
+        foreach ($lista as $valor){
+            if($this->verificar($valor, $listaIds) != 1 && !empty($valor)){
+                $colaborador_atividade = new ColaboradorAtividade();
+                $colaborador_atividade->colaborador_id = $valor;
+                $colaborador_atividade->atividade_id = $request->idAtividade;
+                $colaborador_atividade->save();
+            // echo $valor . '</br>';
+            }
+        }
+        
+        return redirect()->route('showColaboradores', ['id'=>$request->idAtividade]);        
+    }
+
+    public function verificar($valor, $listaIds){
+        for( $i = 0; $i < count($listaIds); $i++){
+            if($listaIds[$i]->colaborador_id == $valor){
+                return 1;
+            }
+        }
+        return 0;
     }
 }

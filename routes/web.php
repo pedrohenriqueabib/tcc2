@@ -80,6 +80,12 @@ Route::prefix('atividade')->group( function (){
 
     //Rota para salvar o horario
     Route::post('salvarHorario', [AtividadeController::class, 'salvarHorario'])->name('salvarHorario');
+
+    //Rota para exibir os colaboradores da atividade
+    Route::get('/showColaboradores/{id}', [AtividadeController::class, 'showColaboradores'])->name('showColaboradores');
+
+    //Rota para adicionar colaboradores a uma atividade
+    Route::post('/adicionarColaborador', [AtividadeController::class, 'adicionarColaborador'])->name('adicionarColaborador');
 });
 
 Route::prefix('comite')->group( function(){
