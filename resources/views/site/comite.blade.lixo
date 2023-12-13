@@ -65,3 +65,14 @@
     </div>
     <script src='./js/script.js'></script>
 @endsection
+
+
+@foreach($comite as $dado_comite)
+            <p>{{$dado_comite->nome}}</p>
+            @foreach($comite_organizador as $dado_com_org)
+                @foreach($organizador as $dado_organizador)
+                    <p>{{$dado_com_org}}</p>
+                    
+                @endforeach
+            @endforeach
+        @endforeach
