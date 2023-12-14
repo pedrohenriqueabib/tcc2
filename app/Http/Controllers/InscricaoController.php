@@ -19,7 +19,12 @@ class InscricaoController extends Controller
 
         $inscricao_evento = InscricaoEvento::where('participante_id', session('idUsuario'))->get();
         $inscricao_atividade = InscricaoAtividade::where('participante_id', session('idUsuario'))->get();
+        // return $inscricao_evento;
 
-        return view('site.showInscricao', compact('inscricao_atividade', 'inscricao_evento'));
+        for($i=0; $i < count($inscricao_evento); $i++){
+            $evento[$i] = Evento::select('nome', 'id')->find($inscricao_evento[$i]->evento_id);
+        }
+        // return $evento;
+        return view('site.showInscricao', compact( 'evento'));
     }
 }

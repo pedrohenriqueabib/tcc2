@@ -32,9 +32,13 @@
                 @endfor
             @endfor
         @endforeach
-        <!-- ================= -->
-        <!--  -->
-       
+    </div>
+    <div>
+        <form action='{{route("participarEvento")}}' method="POST">
+            @csrf
+            <input type='hidden' name='idEvento' id='idEvento' value='{{$evento->id}}'>
+            <input type='submit' class='btn btn-primary' value='Quero Participar!'>    
+        </form>
     </div>
 </div>
 @endsection

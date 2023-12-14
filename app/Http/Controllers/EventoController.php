@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Evento;
+use App\Models\InscricaoEvento;
 use App\Models\Atividade;
 use App\Models\Organizacao;
 use App\Models\Comite;
@@ -89,4 +90,21 @@ class EventoController extends Controller
                     'comite_organizador','organizador'));
     }
 
+    public function participarEvento(Request $request){
+        if(session('tipoPerfil') == 'Participante'){
+            $inscricao_evento = InscricaoEvento::where('participante_id', session('idUsuario'))->where('evento_id', $request->idEvento)->first();
+            if(isset($inscricao_evento)){
+                return redirect()->route('home');
+            }else{
+                $inscricao_evento = new InscricaoEvento();
+                $inscricao_evento->evento_id = $request->idEvento;
+                $inscricao_evento->participante_id = session('idUsuario');
+                $inscricao_evento->save();
+                
+                return redirect()->route('home');
+            }
+        }else{
+            return view('site.login');
+        }
+    }
 }

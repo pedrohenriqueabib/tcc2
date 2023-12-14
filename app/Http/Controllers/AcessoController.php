@@ -48,7 +48,7 @@ class AcessoController extends Controller
             session()->put('emailUsuario', $organizador->email);
             
             // return redirect()->route('site.home');
-            return redirect()->route('showPerfil');
+            return redirect()->route('home');
 
 
         }else if($colaborador){
@@ -59,7 +59,7 @@ class AcessoController extends Controller
             session()->put('emailUsuario', $colaborador->email);
             
             // return redirect()->route('site.home');
-            return redirect()->route('showPerfil');
+            return redirect()->route('home');
 
         }else if($participante){
             session()->put('tipoPerfil', 'Participante');
@@ -69,7 +69,7 @@ class AcessoController extends Controller
             session()->put('emailUsuario', $participante->email);
 
             // return redirect()->route('site.home');
-            return redirect()->route('showPerfil');
+            return redirect()->route('home');
 
         }else if($responsavel){
             session()->put('tipoPerfil', 'Responsavel');
@@ -78,8 +78,7 @@ class AcessoController extends Controller
             session()->put('idUsuario', $responsavel->id);
             session()->put('emailUsuario', $responsavel->email);
             
-            // return redirect()->route('site.home');
-            return redirect()->route('showPerfil');
+            return redirect()->route('home');
 
         }else{
             return redirect()->route('site.login', ['erro'=>'nuser']);

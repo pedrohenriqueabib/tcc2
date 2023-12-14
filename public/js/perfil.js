@@ -4,9 +4,6 @@ let rotaOrganizador = document.querySelector(".rotaOrganizador");
 let eventoAtual = document.querySelector(".eventoAtual");
 let minhasInscricoes = document.querySelector(".minhasInscricoes");
 
-rotaOrganizador.style.display = 'none';
-eventoAtual.style.display = 'none';
-minhasInscricoes.style.display = 'none';
 
 if(tipoPerfil.value == 'Organizador'){
     rotaOrganizador.style.display = '';

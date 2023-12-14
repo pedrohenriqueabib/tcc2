@@ -10,15 +10,15 @@
             
         </div>
         
-        <div class="rotaOrganizador">            
+        <div class="rotaOrganizador" style='display:none'>            
             <p><a href="{{ route('formEvent') }}">Criar Novo Evento:+</a></p>
         </div>
 
-        <div class="eventoAtual">
+        <div class="eventoAtual" style='display:none'>
             <p><strong>Meu Evento: </strong><a href='{{route("showEvent")}}'>{{session('nomeEvento')}}</a></p>
         </div>
         
-        <div class="minhasInscricoes">
+        <div class="minhasInscricoes" style='display:none'>
             <p><a href="{{route('showInscricao')}}">Minhas Inscricões</a></p>
         </div>
     </div>

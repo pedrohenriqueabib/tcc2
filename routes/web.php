@@ -57,7 +57,8 @@ Route::prefix('evento')->group( function(){
 
     //Rota para o participante visualizar o evento
     Route::get('/visualizarEvento/{id}',[EventoController::class, 'visualizarEvento'])->name('visualizarEvento');
-
+    //Rota para o participante se cadastrar no evento
+    Route::post('/participarEvento', [EventoController::class, 'participarEvento'])->name('participarEvento');
 });
 
 Route::prefix('atividade')->group( function (){
