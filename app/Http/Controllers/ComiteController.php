@@ -51,9 +51,48 @@ class ComiteController extends Controller
         
         foreach($comite_organizador as $valor){
             $organizador[] = Organizador::where('id', $valor->organizador_id)->get();
-            // echo  .'<br>';
         }
-        // return $comite_organizador[1]->organizador_id;
-        return view('site.membrosComite', compact('comite', 'organizador'));
+
+        $listaMembrosComite = Organizador::select('id', 'nome')->get();
+        return view('site.membrosComite', compact('comite', 'organizador', 'listaMembrosComite'));
     }
+
+    public function editarComite(Request $request){
+        $comite = Comite::where('id', $request->idcomite)->first();
+        $comite->nome = $request->nomecomite;
+        $comite->descricao = $request->descricaocomite;
+        $comite->save();
+
+        return redirect()->route('showComite', ['id'=>$request->idcomite]);
+    }
+
+    public function adicionarMembro(Request $request){
+        $lista = explode('+', $request->selecionados);
+
+        $comite_organizador_ = ComiteOrganizador::
+                                where('comite_id', $request->comite_id)->pluck('organizador_id')->toArray();
+
+        for($i = 0; $i<count($lista)-1; $i++) {
+            if(!in_array($lista[$i], $comite_organizador_)){
+                $comite_organizador = new ComiteOrganizador();
+                $comite_organizador->organizador_id = $lista[$i];
+                $comite_organizador->comite_id = $request->comite_id;
+                $comite_organizador->save();
+            }
+        }
+
+        return redirect()->route('showMembrosComite', ['id'=>$request->comite_id]);
+    }
+
+    public function removerMembro(Request $request){
+        $comite_organizador = ComiteOrganizador::where('organizador_id',$request->organizador_id)->
+                                where('comite_id',$request->comite_id)->first();
+        
+        if($comite_organizador){
+            $comite_organizador->delete();
+        }
+
+        return redirect()->route('showMembrosComite', ['id'=>$request->comite_id]); 
+    }
+
 }

@@ -11,6 +11,7 @@ use App\Models\Local;
 use App\Models\Evento;
 use App\Models\Colaborador;
 use App\Models\ColaboradorAtividade;
+use App\Models\InscricaoAtividade;
 
 class AtividadeController extends Controller
 {
@@ -25,35 +26,7 @@ class AtividadeController extends Controller
         $atividade->evento_id = $request->eventoId;
         $atividade->responsavel_id = $request->responsavelAtividade;
         $atividade->save();
-        // //==========================================================
         
-        // $d = date('l', strtotime($request->inicio));
-        // $dia_de_semana = [
-        //     'Sunday' => 'DOM', 
-        //     'Monday'=>"SEG", 
-        //     'Tuesday' => 'TER', 
-        //     'Wednesday' => 'QUAR', 
-        //     "Thursday" => "QUI",
-        //     "Friday" => "SEX",
-        //     "Saturday" => "SAB"
-        // ];
-
-        // $horario->dia_semana = $dia_de_semana[$d];
-        // $horario->inicio = $request->inicio;
-        // $horario->fim = $request->fim;
-        // $horario->carga_horaria = $request->cargaHoraria;
-        // $horario->save();
-        // //===================================================================
-        // $local->nome = $request->nomeLocal;
-        // $local->pavimento = $request->pavimento;
-        // $local->bloco = $request->bloco;
-        // $local->save();
-
-        // $atividade_horario->atividade_id = $atividade->id;
-        // $atividade_horario->local_id = $local->id;
-        // $atividade_horario->horario_id = $horario->id;
-
-        // return redirect()->route('showAtividade', ['id' => $atividade->id]);
         return redirect()->route('showEvent');
     }
 
@@ -173,4 +146,27 @@ class AtividadeController extends Controller
         }
         return 0;
     }
+
+    public function colaborarAtividade($evento_id, $participante_id){
+        $atividade_evento = Atividade::select('nome','id')->where('evento_id', $evento_id)->get();
+        // return $atividade_evento;
+        return view("site.colaborarAtividade", compact('atividade_evento','participante_id','evento_id'));
+    }
+
+    public function addParticipanteColaborador(Request $request){
+        $inscricao_atividade = InscricaoAtividade::where('atividade_id', $request->atividade_id)->
+                                where('participante_id', $request->participante_id)->first();
+        // return $inscricao_atividade;
+        if($inscricao_atividade){
+            return redirect()->route('visualizarEvento', ['id'=>$request->evento_id]);
+        }else{
+            $inscricao_atividade = new InscricaoAtividade();
+            $inscricao_atividade->atividade_id = $request->atividade_id;
+            $inscricao_atividade->participante_id = $request->participante_id;
+            $inscricao_atividade->save();
+            return redirect()->route('visualizarEvento', ['id'=>$request->evento_id]);
+        }
+    }
+
+        
 }

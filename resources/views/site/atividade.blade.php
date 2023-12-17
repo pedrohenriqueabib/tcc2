@@ -8,7 +8,7 @@
             @csrf
             <div class="mb-3">
                 <label for="nomeAtividade" class="form-label">Nome:*</label>
-                <input type="text" value='{{$valor->nome}}' name="nomeAtividade" style="width:50%" class="form-control" id="nomeAtividade" >
+                <input type="text" value='{{$valor->nome}}' name="nomeAtividade" style="width:50%" class="form-control" id="nomeAtividade">
                 <input type='hidden' value='{{$valor->id}}' name='idAtividade' id='idAtividade'>
             </div>
             <div class="mb-3">
@@ -39,9 +39,11 @@
             </div>
             
 
-            <button type="submit" class="btn btn-primary">Editar</button>
-            <button type="reset" class="btn btn-primary">Resetar</button>
+            <button type="button" id='editar' class="btn btn-primary">Editar</button>
+            <button type="submit" id='salvar' style='display:none' class="btn btn-primary">Editar</button>
+            <button type="reset" id='cancelar' style='display:none's class="btn btn-primary">Cancelar</button>
         </form>
     @endforeach
     </div>
+    <script src="../../js/atividade.js"></script>
 @endsection

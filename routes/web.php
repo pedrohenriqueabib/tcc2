@@ -53,13 +53,15 @@ Route::prefix('evento')->group( function(){
     Route::post('/saveEvent', [EventoController::class, 'save'])->name('saveEvent');
 
     // Rota para atualizar evento
-    Route::post('/updateEvent', [EventoController::class, 'update'])->name('updateEvent');
+    Route::post('/editarEvento', [EventoController::class, 'editarEvento'])->name('editarEvento');
 
     //Rota para o participante visualizar o evento
     Route::get('/visualizarEvento/{id}',[EventoController::class, 'visualizarEvento'])->name('visualizarEvento');
+    
     //Rota para o participante se cadastrar no evento
     Route::post('/participarEvento', [EventoController::class, 'participarEvento'])->name('participarEvento');
 });
+
 
 Route::prefix('atividade')->group( function (){
     //Rota para exibir formulário de criação de atividade
@@ -87,7 +89,14 @@ Route::prefix('atividade')->group( function (){
 
     //Rota para adicionar colaboradores a uma atividade
     Route::post('/adicionarColaborador', [AtividadeController::class, 'adicionarColaborador'])->name('adicionarColaborador');
+
+    //Rota para selecionar dados para o participante escolher em qual atividade irá colaborar
+    Route::get('/colaborarAtividade/{evento_id}/{participante_id}', [AtividadeController::class, 'colaborarAtividade'])->name('colaborarAtividade');
+
+    //Rota para adição do participante para colaborar na atividade
+    Route::post('/addParticipanteColaborador', [AtividadeController::class, 'addParticipanteColaborador'])->name('addParticipanteColaborador');
 });
+
 
 Route::prefix('comite')->group( function(){
 
@@ -102,6 +111,15 @@ Route::prefix('comite')->group( function(){
     
     //Rota para coletar membros do comitê
     Route::get('showComiteMembros/{id}', [ComiteController::class, 'showMembrosComite'])->name('showMembrosComite');
+
+    //Rota para atualizar dados do comite
+    Route::post('editarComite', [ComiteController::class, 'editarComite'])->name('editarComite');
+
+    //Rota para adicionar novos membros ao comite
+    Route::post('adicionarMembro', [ComiteController::class, 'adicionarMembro'])->name('adicionarMembro');
+
+    //Rota para remoção de membro de comitê
+    Route::post('removerMembro', [ComiteController::class, 'removerMembro'])->name('removerMembro');
 });
 
 Route::prefix('inscricao')->group(function(){
@@ -176,3 +194,8 @@ Route::get('/comite', function(){
 Route::get('/membrosComite', function(){
     return view('membrosComite');
 })->name('site.membrosComite');
+
+//Rota para o participante colaborar com uma atividade
+Route::get('/colaborarAtividade', function(){
+    return view('colaborarAtividade');
+})->name('site.colaborarAtividade');

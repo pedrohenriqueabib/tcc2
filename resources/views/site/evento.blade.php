@@ -2,7 +2,6 @@
 @section('content')
 
     <div class="container mt-5">
-        {{$evento->id}}
         <ul class="nav nav-tabs" id="myTabs" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="tab1" data-bs-toggle="tab" href="#content1" role="tab" aria-controls="content1" aria-selected="true">Evento</a>
@@ -25,48 +24,54 @@
             </script>
             @endif
             <div class="container py-5">
-                <form action="" method="POST">
+                <form action="{{route('editarEvento')}}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="organizador" class="form-label">Organizador:</label>
-                        <input type="text" value='{{session("nomeUsuario")}}' style="width:50%" class="form-control" name="organizador" id="organizador" disabled>
+                        <input type="text" value='{{session("nomeUsuario")}}' style="width:50%" class="form-control" id="organizador" disabled>
+                        <input type="hidden" value='{{session("nomeUsuario")}}' style="width:50%" class="form-control" name="organizador" >
+                    </div>
+                    <div>
+                        <input type="hidden" name="evento_id" value='{{$evento->id}}'>
                     </div>
                     <div class="mb-3">
                         <label for="organizacao" class="form-label">Organização:</label>
                         <input type="text" value='{{$organizacao->nome}}' style="width:50%" class="form-control" name="organizacao" id="organizacao" disabled>
+                        <input type="hidden" value='{{$organizacao->nome}}' style="width:50%" class="form-control" name="organizacao" >
                     </div>
                     <div class="mb-3">
                         <label for="nomeEvento" class="form-label">Nome do Evento:*</label>
-                        <input type="text" value='{{$evento->nome}}' style="width:50%" class="form-control" id="nomeEvento" >
+                        <input type="text" value='{{$evento->nome}}' style="width:50%" class="form-control desativado" name="nomeEvento" id="nomeEvento"  disabled>
                     </div>
                     <div class="mb-3">
                         <label for="descricao" class="form-label">Descriçao:*</label>
                         <div>
-                            <textarea name="descricao" id="descricao" cols="80" rows="">{{"$evento->descricao"}}</textarea>
+                            <textarea name="descricao" class='desativado' id="descricao" cols="80" rows="" disabled>{{"$evento->descricao"}}</textarea>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="avRua" class="form-label">Endereço:*</label>
-                        <input type="text"  style="width:50%" class="form-control" value='{{$evento->endereco}}'id="avRua">
+                        <label for="endereco" class="form-label">Endereço:*</label>
+                        <input type="text"  style="width:50%" class="form-control desativado" value='{{$evento->endereco}}' name="endereco" id="endereco" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="edicao" class="form-label">Ediçao:*</label>
-                        <input type="text"  style="width:50%" class="form-control" value='{{$evento->edicao}}' id="edicao">
+                        <input type="text"  style="width:50%" class="form-control desativado" value='{{$evento->edicao}}' name="edicao" id="edicao" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="site" class="form-label">Site:*</label>
-                        <input type="text"  style="width:50%" class="form-control" value='{{$evento->site}}' id="site">
+                        <input type="text"  style="width:50%" class="form-control desativado" value='{{$evento->site}}' name="site" id="site" disabled>
                     </div>
                     
                     <div class="mb-3">
                         <label for="dataInicio" class="form-label">Data de Início:</label>
-                        <input type="date" style="width:11%" class="form-control" value='{{$evento->data_inicio}}' id="dataInicio">
+                        <input type="date" style="width:11%" class="form-control desativado" value='{{$evento->data_inicio}}' name="dataInicio" id="dataInicio" disabled>
                         <label for="dataFim" class="form-label">Data Término:</label>
-                        <input type="date" style="width:11%" class="form-control" value='{{$evento->data_fim}}' id="dataFim">
+                        <input type="date" style="width:11%" class="form-control desativado" value='{{$evento->data_fim}}' name="dataFim" id="dataFim" disabled>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Editar</button>
-                    <button type="reset" class="btn btn-primary">Resetar</button>
+                    <button class="btn btn-primary" id='editar'>Editar</button>
+                    <button type="submit" id='salvar' class="btn btn-primary" style='display:none'>Salvar</button>
+                    <button type="reset" id='cancelar' class="btn btn-primary" style='display:none'>Cancelar</button>
                 </form>
             </div>
         </div>

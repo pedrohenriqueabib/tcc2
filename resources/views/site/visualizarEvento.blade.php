@@ -14,7 +14,9 @@
         <p><strong>Atividades:</strong></p>
         <!-- {{$atividade}} -->
         @foreach($atividade as $valor)
-            <p>{{$valor->nome}} {{$valor->descricao}}</p>
+            <p>Nome: {{$valor->nome}}</p>
+            <p>Descrição:</p>
+            <p>{{$valor->descricao}}</p>
         @endforeach
     </div>
     <div class="comites">
@@ -39,6 +41,10 @@
             <input type='hidden' name='idEvento' id='idEvento' value='{{$evento->id}}'>
             <input type='submit' class='btn btn-primary' value='Quero Participar!'>    
         </form>
+    </div>
+    <br>
+    <div>
+        <a href='{{route("colaborarAtividade", ["evento_id"=>$evento->id, "participante_id"=>session("idUsuario")])}}'><button class='btn btn-primary'>Quero Colaborar!</button></a>
     </div>
 </div>
 @endsection

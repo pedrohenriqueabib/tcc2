@@ -70,24 +70,28 @@ class EventoController extends Controller
     }
 
     public function visualizarEvento($id){
-        $evento = Evento::where('id', $id)->first();
-        $atividade = Atividade::where('evento_id', $id)->get();
-        $organizacao = Organizacao::where('evento_id', $id)->first();
-        $comite = Comite::where('organizacao_id', $organizacao->id)->get();
-        
-        foreach($comite as $valor){
-            $comite_organizador[] = ComiteOrganizador::where('comite_id', $valor->id)->get();
-        }
-        
-        for( $i = 0; $i < count($comite_organizador); $i++)
-        {
-            for($j=0; $j<count($comite_organizador[$i]); $j++){
-                $organizador[] = Organizador::where('id', $comite_organizador[$i][$j]->organizador_id)->get();
+        if(session()->has('idUsuario')){
+            $evento = Evento::where('id', $id)->first();
+            $atividade = Atividade::where('evento_id', $id)->get();
+            $organizacao = Organizacao::where('evento_id', $id)->first();
+            $comite = Comite::where('organizacao_id', $organizacao->id)->get();
+            
+            foreach($comite as $valor){
+                $comite_organizador[] = ComiteOrganizador::where('comite_id', $valor->id)->get();
             }
-            // echo $comite_organizador[$i] . '<br>';
+            
+            for( $i = 0; $i < count($comite_organizador); $i++)
+            {
+                for($j=0; $j<count($comite_organizador[$i]); $j++){
+                    $organizador[] = Organizador::where('id', $comite_organizador[$i][$j]->organizador_id)->get();
+                }
+                // echo $comite_organizador[$i] . '<br>';
+            }
+            return view('site.visualizarEvento', compact('evento','atividade','organizacao','comite', 
+                        'comite_organizador','organizador'));
+        }else{
+            return redirect()->route('login');
         }
-        return view('site.visualizarEvento', compact('evento','atividade','organizacao','comite', 
-                    'comite_organizador','organizador'));
     }
 
     public function participarEvento(Request $request){
@@ -106,5 +110,20 @@ class EventoController extends Controller
         }else{
             return view('site.login');
         }
+    }
+
+    public function editarEvento(Request $request){
+        $evento = Evento::where('id', $request->evento_id)->first();
+        $evento->nome = $request->nomeEvento;
+        $evento->descricao = $request->descricao;
+        $evento->endereco = $request->endereco;
+        $evento->edicao = $request->edicao;
+        $evento->site = $request->site;
+        $evento->data_inicio = $request->dataInicio;
+        $evento->data_fim = $request->dataFim;
+        $evento->save();
+
+        return redirect()->route('showEvent');
+       //"dataInicio":"2023-12-08","dataFim":"2023-12-16"}
     }
 }

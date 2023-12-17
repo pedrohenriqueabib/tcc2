@@ -9,7 +9,7 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Cargo</th>
-                <th>Matrícula</th>
+                <th>Ação</th>
             </tr>
         </thead>
         <tbody>
@@ -18,10 +18,49 @@
                 <td>{{$valor[0]->nome}}</td>
                 <td>{{$valor[0]->email}}</td>
                 <td>{{$valor[0]->cargo}}</td>
-                <td>{{$valor[0]->matricula}}</td>
+                <td>
+                    <form action="{{route('removerMembro')}}" method='POST'>
+                        @csrf
+                        <input type="hidden" name="organizador_id" value='{{$valor[0]->id}}'>
+                        <input type="hidden" name="comite_id" value="{{$comite->id}}">
+                        <input type="submit" value="Remover" class='btn btn-link'>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>
-    </table>  
+    </table>
+    
+    <input type='button' class='btn btn-primary' id='adicionarMembros' value='Adicionar Membros'>
+    <div class="membros" style='display:none'>
+        <div>
+            <select id="selecionarMembro">
+                <option value="Selecionar" selected disabled>Selecionar</option>
+                @foreach($listaMembrosComite as $dado)
+                    <option value="{{$dado->id}}+{{$dado->nome}}">{{$dado->nome}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Selecionado</th>
+                    </tr>
+                </thead>
+                <tbody id='corpoLista'>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <form action="{{route('adicionarMembro')}}" method="post">
+            @csrf 
+            <input type="hidden" value='{{$comite->id}}' name='comite_id'> 
+            <input type="hidden" name="selecionados" id='selecionados' value=''>
+            <input class='btn btn-primary' type="submit" value="Adicionar" >
+            <input class='btn btn-primary' type="button" value="Cancelar" id='cancelar'>
+        </form>
+    </div>
 </div>
+<script src="../../js/membrosComite.js"></script>
 @endsection
