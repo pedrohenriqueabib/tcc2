@@ -8,26 +8,26 @@
             @csrf
             <div class="mb-3">
                 <label for="nomeAtividade" class="form-label">Nome:*</label>
-                <input type="text" value='{{$valor->nome}}' name="nomeAtividade" style="width:50%" class="form-control" id="nomeAtividade">
+                <input type="text" value='{{$valor->nome}}' name="nomeAtividade" style="width:50%" class="form-control desabilitado" id="nomeAtividade" disabled>
                 <input type='hidden' value='{{$valor->id}}' name='idAtividade' id='idAtividade'>
             </div>
             <div class="mb-3">
                 <label for="descricao" class="form-label">Descricao:*</label>
                 <div>
-                    <textarea name="descricaoAtividade" id="descricaoAtividade" cols="80" rows="">{{$valor->descricao}}</textarea>
+                    <textarea name="descricaoAtividade" class='desabilitado' id="descricaoAtividade" cols="80" rows="" disabled>{{$valor->descricao}}</textarea>
                 </div>
             </div>
             <div class="mb-3">
                 <label for="area" class="form-label">Area:*</label>
-                <input type="text" value="{{$valor->area}}" name="area" style="width:50%" class="form-control" id="area" >
+                <input type="text" value="{{$valor->area}}" name="area" style="width:50%" class="form-control desabilitado" id="area"  disabled>
             </div>
             <div class="mb-3">
                 <label for="subarea" class="form-label">Subarea:*</label>
-                <input type="text" value='{{$valor->subarea}}' name="subarea" style="width:50%" class="form-control" id="subarea" >
+                <input type="text" value='{{$valor->subarea}}' name="subarea" style="width:50%" class="form-control desabilitado" id="subarea"  disabled>
             </div>
             <div class="mb-3">
                 <label for="cargaHoraria" class="form-label">Carga Horária:*</label>
-                <input type="text" value='{{$valor->carga_horaria}}' name="cargaHoraria" style="width:50%" class="form-control" id="cargaHoraria" >
+                <input type="text" value='{{$valor->carga_horaria}}' name="cargaHoraria" style="width:50%" class="form-control desabilitado" id="cargaHoraria"  disabled>
             </div>
             <div>
                 <p>
@@ -40,7 +40,7 @@
             
 
             <button type="button" id='editar' class="btn btn-primary">Editar</button>
-            <button type="submit" id='salvar' style='display:none' class="btn btn-primary">Editar</button>
+            <button type="submit" id='salvar' style='display:none' class="btn btn-primary">Salvar</button>
             <button type="reset" id='cancelar' style='display:none's class="btn btn-primary">Cancelar</button>
         </form>
     @endforeach

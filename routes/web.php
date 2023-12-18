@@ -95,6 +95,12 @@ Route::prefix('atividade')->group( function (){
 
     //Rota para adição do participante para colaborar na atividade
     Route::post('/addParticipanteColaborador', [AtividadeController::class, 'addParticipanteColaborador'])->name('addParticipanteColaborador');
+
+    //rota para remoção de colaborador
+    Route::post('removerColaborador', [AtividadeController::class, 'removerColaborador'])->name('removerColaborador');
+
+    //Rota para exclusão de tividade e seus afins
+    Route::post('removerAtividade', [AtividadeController::class, 'removerAtividade'])->name('removerAtividade');
 });
 
 
@@ -120,6 +126,9 @@ Route::prefix('comite')->group( function(){
 
     //Rota para remoção de membro de comitê
     Route::post('removerMembro', [ComiteController::class, 'removerMembro'])->name('removerMembro');
+
+    //Rota para excluir comite
+    Route::post('excluirComite', [ComiteController::class, 'excluirComite'])->name('excluirComite');
 });
 
 Route::prefix('inscricao')->group(function(){

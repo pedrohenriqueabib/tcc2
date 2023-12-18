@@ -14,6 +14,9 @@
                     <th>
                         Descrição
                     </th>
+                    <th>
+                        Ação
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +27,14 @@
                         </td>
                         <td>
                             {{$selecionados[$i][0]->descricao}}
+                        </td>
+                        <td>                            
+                            <form action="{{route('removerColaborador')}}" method='POST'>
+                                @csrf
+                                <input type="hidden" value='{{$selecionados[$i][0]->id}}' name="colaborador_id" id="colaborador_id">
+                                <input type="hidden" value='{{$atividade->id}}' name="atividade_id">
+                                <input type="submit" value="Remove" class='btn btn-link'>
+                            </form> 
                         </td>
                     </tr>
                 @endfor

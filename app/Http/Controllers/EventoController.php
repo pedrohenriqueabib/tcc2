@@ -55,6 +55,7 @@ class EventoController extends Controller
         $organizacao = Organizacao::find($evento->id);
         $comite = Comite::where('organizacao_id', $organizacao->id)->get();
         $comite_organizador = [];
+
         // foreach($comite as $valor){
             $comite_organizador = ComiteOrganizador::where('comite_id',$comite[0]->id)->get();
         // }
@@ -85,7 +86,6 @@ class EventoController extends Controller
                 for($j=0; $j<count($comite_organizador[$i]); $j++){
                     $organizador[] = Organizador::where('id', $comite_organizador[$i][$j]->organizador_id)->get();
                 }
-                // echo $comite_organizador[$i] . '<br>';
             }
             return view('site.visualizarEvento', compact('evento','atividade','organizacao','comite', 
                         'comite_organizador','organizador'));
@@ -124,6 +124,5 @@ class EventoController extends Controller
         $evento->save();
 
         return redirect()->route('showEvent');
-       //"dataInicio":"2023-12-08","dataFim":"2023-12-16"}
     }
 }

@@ -95,4 +95,10 @@ class ComiteController extends Controller
         return redirect()->route('showMembrosComite', ['id'=>$request->comite_id]); 
     }
 
+    public function excluirComite(Request $request){
+        $comite_organizador = ComiteOrganizador::where('comite_id', $request->comite_id)->delete();
+        $comite = Comite::where('id', $request->comite_id)->delete();
+        
+        return redirect()->route('showEvent');
+    }
 }

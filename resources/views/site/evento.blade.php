@@ -89,6 +89,9 @@
                                 <th>
                                     Descrição
                                 </th>
+                                <th>
+                                    Ação
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,6 +102,14 @@
                                 </td>
                                 <td>
                                     {{$valor->descricao}} 
+                                </td>
+                                <td>
+                                    <form action="{{route('excluirComite')}}" method='POST'>
+                                        @csrf
+                                        <input type="hidden" name='evento_id' value='{{$evento->id}}'>
+                                        <input type="hidden" name="comite_id" value="{{$valor->id}}">
+                                        <input type="submit" value="Remover" class='btn btn-link'>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -122,6 +133,7 @@
                                 <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Área: " style="width: 206.328px;">Área</th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Subarea: " style="width: 206.328px;">Subarea</th>
                                 <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Palavras Chaves: " style="width: 206.328px;">Palavras Chaves</th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable-default" rowspan="1" colspan="1" aria-label="Palavras Chaves: " style="width: 206.328px;">Ação</th>
                             </tr>
                         </thead>
 						<tbody id="tabela">                    
@@ -133,6 +145,14 @@
                                     <td>{{$valor->area}}</td>
                                     <td>{{$valor->subarea}}</td>
                                     <td>{{$valor->palavras_chaves}}</td>
+                                    <td>
+                                        <form action='{{route("removerAtividade")}}' method='POST'>
+                                            @csrf
+                                            <input type="hidden" name='evento_id' value='{{$evento->id}}'>
+                                            <input type="hidden" name="atividade_id" value="{{$valor->id}}">
+                                            <input type="submit" value="Remover" class='btn btn-link'>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

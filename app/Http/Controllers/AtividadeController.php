@@ -34,9 +34,7 @@ class AtividadeController extends Controller
         $responsavel = Responsavel::all();
         $evento = Evento::where("id", $id)->first();
         
-        return view('site.criarAtividade', compact('responsavel', 'evento'));
-        // return $id;
-        
+        return view('site.criarAtividade', compact('responsavel', 'evento'));        
     }
 
     public function showAtividade($id){
@@ -58,7 +56,7 @@ class AtividadeController extends Controller
     }
 
     public function showAtividadeHorario($id){
-        $atividade = Atividade::where('id', $id)->get('nome');
+        $atividade = Atividade::select('id', 'nome')->where('id', $id)->get();
         $atividade_horario = AtividadeHorario::with('Local', 'Horario')->where('atividade_id', $id)->get();
 
         return view('site.atividade_horario', ['idAtividade'=>$id], compact('atividade_horario', 'atividade'));
@@ -79,7 +77,7 @@ class AtividadeController extends Controller
                 "Friday" => "SEX",
                 "Saturday" => "SAB"
             ];
-        $dia_semana = $dias[$d];
+        $dia_semana = $dias[$d].'';
 
         $horario = new Horario();
         $horario->inicio =  $request->inicio;
@@ -111,7 +109,6 @@ class AtividadeController extends Controller
         if(!empty($colaborador_atividade))
         {
             $selecionados = [];
-            // $selecionados = Colaborador::where('colaborador_id', $colaborador_atividade[0]->colaborador_id)->get();
             foreach ($colaborador_atividade as $valor) {
                 array_push($selecionados, Colaborador::where('id', $valor->colaborador_id)->get());
             }
@@ -131,7 +128,6 @@ class AtividadeController extends Controller
                 $colaborador_atividade->colaborador_id = $valor;
                 $colaborador_atividade->atividade_id = $request->idAtividade;
                 $colaborador_atividade->save();
-            // echo $valor . '</br>';
             }
         }
         
@@ -149,14 +145,13 @@ class AtividadeController extends Controller
 
     public function colaborarAtividade($evento_id, $participante_id){
         $atividade_evento = Atividade::select('nome','id')->where('evento_id', $evento_id)->get();
-        // return $atividade_evento;
+        
         return view("site.colaborarAtividade", compact('atividade_evento','participante_id','evento_id'));
     }
 
     public function addParticipanteColaborador(Request $request){
         $inscricao_atividade = InscricaoAtividade::where('atividade_id', $request->atividade_id)->
                                 where('participante_id', $request->participante_id)->first();
-        // return $inscricao_atividade;
         if($inscricao_atividade){
             return redirect()->route('visualizarEvento', ['id'=>$request->evento_id]);
         }else{
@@ -168,5 +163,30 @@ class AtividadeController extends Controller
         }
     }
 
+    public function removerColaborador(Request $request){
+        $colaborador_atividade = ColaboradorAtividade::where('atividade_id', $request->atividade_id)->
+                                where('colaborador_id', $request->colaborador_id)->first();
+
+        if($colaborador_atividade){
+            $colaborador_atividade->delete();
+        }
         
+        return redirect()->route('showColaboradores', ['id'=>$request->atividade_id]);
+    }
+
+    public function removerAtividade(Request $request){
+        $atividade_horario = AtividadeHorario::where('atividade_id', $request->atividade_id)->get();
+        
+        foreach($atividade_horario as $valor){
+            $local = Local::where('id', $valor->local_id)->delete();
+            $horario = Horario::where('id', $valor->horario_id)->delete();
+        }
+        $atividade = Atividade::where('id', $request->atividade_id)->first();
+        $atividade->delete();
+
+        $colaborador_atividade = ColaboradorAtividade::where('atividade_id', $request->atividade_id)->delete();
+        $inscricao_atividade = InscricaoAtividade::where('atividade_id', $request->atividade_id)->delete();
+
+        return redirect()->route('showEvent');
+    }
 }

@@ -1,7 +1,8 @@
 @extends('site.layouts.layout')
 @section('content')
+
 <div class="container py-5">
-    <p><strong>Nome da atividade:</strong> {{$atividade[0]->nome}}
+    <p><strong>Nome da atividade:</strong> <a href='{{route("showAtividade", ["id"=>$atividade[0]->id])}}'>{{$atividade[0]->nome}}</a>
     <p><a href='{{route("criarHorario", ["id"=>$idAtividade])}}'>Adicionar Horário:+</a></p>
 
     @foreach($atividade_horario as $valor)
