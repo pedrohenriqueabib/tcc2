@@ -17,7 +17,7 @@
         </p>
     </div>
     <div class="formulario">
-        <div id="formOrganizador">
+        <div id="formOrganizador" style='display:none'>
             <form action="{{route('saveUser')}}" method="POST">
                 @csrf            
                 <div class="mb-3">
@@ -50,7 +50,7 @@
             </form>
         </div>
         <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-        <div id="formResponsavel">
+        <div id="formResponsavel" style='display:none'>
             <form action="{{route('saveUser')}}" method="POST">
                 @csrf            
                 <div class="mb-3">
@@ -83,7 +83,7 @@
             </form>
         </div>
         <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-        <div id="formParticipante">
+        <div id="formParticipante" style='display:none'>
             <form action="{{route('saveUser')}}" method="POST">
                 @csrf            
                 <div class="mb-3">
@@ -108,7 +108,7 @@
             </form>
         </div>
         <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-        <div id="formColaborador">
+        <div id="formColaborador" style='display:none'>
             <form action="{{route('saveUser')}}" method="POST">
                 @csrf            
                 <div class="mb-3">

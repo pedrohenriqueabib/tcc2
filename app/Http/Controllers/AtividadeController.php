@@ -181,11 +181,13 @@ class AtividadeController extends Controller
             $local = Local::where('id', $valor->local_id)->delete();
             $horario = Horario::where('id', $valor->horario_id)->delete();
         }
+
         $atividade = Atividade::where('id', $request->atividade_id)->first();
         $atividade->delete();
 
         $colaborador_atividade = ColaboradorAtividade::where('atividade_id', $request->atividade_id)->delete();
         $inscricao_atividade = InscricaoAtividade::where('atividade_id', $request->atividade_id)->delete();
+        $atividade_horario = AtividadeHorario::where('atividade_id', $request->atividade_id)->delete();
 
         return redirect()->route('showEvent');
     }

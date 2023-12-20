@@ -35,16 +35,20 @@
             @endfor
         @endforeach
     </div>
-    <div>
-        <form action='{{route("participarEvento")}}' method="POST">
-            @csrf
-            <input type='hidden' name='idEvento' id='idEvento' value='{{$evento->id}}'>
-            <input type='submit' class='btn btn-primary' value='Quero Participar!'>    
-        </form>
+    @if( session('tipoPerfil') == 'Participante')
+    <div class="incricao">
+        <div>
+            <form action='{{route("participarEvento")}}' method="POST">
+                @csrf
+                <input type='hidden' name='idEvento' id='idEvento' value='{{$evento->id}}'>
+                <input type='submit' class='btn btn-primary' value='Quero Participar!'>    
+            </form>
+        </div>
+        <br>
+        <div>
+            <a href='{{route("colaborarAtividade", ["evento_id"=>$evento->id, "participante_id"=>session("idUsuario")])}}'><button class='btn btn-primary'>Quero Colaborar!</button></a>
+        </div>
     </div>
-    <br>
-    <div>
-        <a href='{{route("colaborarAtividade", ["evento_id"=>$evento->id, "participante_id"=>session("idUsuario")])}}'><button class='btn btn-primary'>Quero Colaborar!</button></a>
-    </div>
+    @endif
 </div>
 @endsection

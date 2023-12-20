@@ -132,8 +132,17 @@ Route::prefix('comite')->group( function(){
 });
 
 Route::prefix('inscricao')->group(function(){
-    //Routa para o participante se inscrever
+    //Routa para exibir as inscrições do participante
     Route::get('showInscricao', [InscricaoController::class, 'showInscricao'])->name('showInscricao');
+
+    //Rota para inscrever participante no evento
+    Route::post('inscricaoEvento', [InscricaoController::class, 'inscricaoEvento'])->name('inscricaoEvento');
+
+    //Rota para auxiliar a inscrever participante em atividades
+    Route::get('participarAtividade', [InscricaoController::class,'participarAtividade'])->name('participarAtividade');
+
+    //Rota para registrar o participante em "inscricao_atividade"
+    Route::post('inscreverEmAtividade', [InscricaoController::class,'inscreverEmAtividade'])->name('inscreverEmAtividade');
 });
 
 //Rota para uma controller que irá redicrecionar para a view da página inicial 
@@ -208,3 +217,8 @@ Route::get('/membrosComite', function(){
 Route::get('/colaborarAtividade', function(){
     return view('colaborarAtividade');
 })->name('site.colaborarAtividade');
+
+//Rota para o participante se inscrever em atividades do Evento
+Route::get('participarAtividade', function(){
+    return view('participarAtividade');
+})->name('site.participarAtividade');
