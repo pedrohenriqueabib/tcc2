@@ -143,25 +143,42 @@ class AtividadeController extends Controller
         return 0;
     }
 
-    public function colaborarAtividade($evento_id, $participante_id){
-        $atividade_evento = Atividade::select('nome','id')->where('evento_id', $evento_id)->get();
+    public function inscreverAtividade($evento_id){
+        $atividade_evento_ids = Atividade::where('evento_id', $evento_id)->pluck('id')->toArray();
+        // return $atividade_evento_ids;
+        for($i = 0; $i< count($atividade_evento_ids); $i++){
+            $id[$i] = InscricaoAtividade::where('atividade_id', $atividade_evento_ids[$i])->
+                                        where('participante_id', session('idUsuario'))->first();
+            if( isset($id[$i]) && !empty($id[$i])){
+                $id_inscrito[$i] = $id[$i]->atividade_id;
+            }
+        }
+
+        $atividade_evento = Atividade::where('evento_id', $evento_id)->get();
+        $evento_nome = Evento::select('nome')->where('id',$evento_id)->first();
         
-        return view("site.colaborarAtividade", compact('atividade_evento','participante_id','evento_id'));
+        foreach($atividade_evento as $valor){
+            if( !in_array($valor->id, $id_inscrito)){
+                $atividades[] = $valor;
+            }
+        }
+        
+        return view("site.inscreverAtividade", compact('atividades','evento_id', 'evento_nome'));
     }
 
-    public function addParticipanteColaborador(Request $request){
-        $inscricao_atividade = InscricaoAtividade::where('atividade_id', $request->atividade_id)->
-                                where('participante_id', $request->participante_id)->first();
-        if($inscricao_atividade){
-            return redirect()->route('visualizarEvento', ['id'=>$request->evento_id]);
-        }else{
-            $inscricao_atividade = new InscricaoAtividade();
-            $inscricao_atividade->atividade_id = $request->atividade_id;
-            $inscricao_atividade->participante_id = $request->participante_id;
-            $inscricao_atividade->save();
-            return redirect()->route('visualizarEvento', ['id'=>$request->evento_id]);
-        }
-    }
+    // public function addParticipanteColaborador(Request $request){
+    //     $inscricao_atividade = InscricaoAtividade::where('atividade_id', $request->atividade_id)->
+    //                             where('participante_id', $request->participante_id)->first();
+    //     if($inscricao_atividade){
+    //         return redirect()->route('visualizarEvento', ['id'=>$request->evento_id]);
+    //     }else{
+    //         $inscricao_atividade = new InscricaoAtividade();
+    //         $inscricao_atividade->atividade_id = $request->atividade_id;
+    //         $inscricao_atividade->participante_id = $request->participante_id;
+    //         $inscricao_atividade->save();
+    //         return redirect()->route('visualizarEvento', ['id'=>$request->evento_id]);
+    //     }
+    // }
 
     public function removerColaborador(Request $request){
         $colaborador_atividade = ColaboradorAtividade::where('atividade_id', $request->atividade_id)->

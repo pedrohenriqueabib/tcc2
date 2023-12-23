@@ -84,10 +84,10 @@ class InscricaoController extends Controller
 
     public function inscreverEmAtividade(Request $request){
         $inscricao_atividade = new InscricaoAtividade();
-        $inscricao_atividade->participante_id = $request->participante_id;
+        $inscricao_atividade->participante_id = session('idUsuario');
         $inscricao_atividade->atividade_id = $request->atividade_id;
         $inscricao_atividade->save();
 
-        return redirect()->route('participarAtividade');
+        return redirect()->route('inscreverAtividade', ['id'=>$request->evento_id]);
     }
 }

@@ -41,12 +41,12 @@
             <form action='{{route("participarEvento")}}' method="POST">
                 @csrf
                 <input type='hidden' name='idEvento' id='idEvento' value='{{$evento->id}}'>
-                <input type='submit' class='btn btn-primary' value='Quero Participar!'>    
+                <input type='submit' class='btn btn-link' value='Inscrever Evento'>    
             </form>
         </div>
         <br>
         <div>
-            <a href='{{route("colaborarAtividade", ["evento_id"=>$evento->id, "participante_id"=>session("idUsuario")])}}'><button class='btn btn-primary'>Quero Colaborar!</button></a>
+            <a href='{{route("inscreverAtividade", ["id"=>$evento->id])}}'><button class='btn btn-link'>Inscrever Atividade</button></a>
         </div>
     </div>
     @endif

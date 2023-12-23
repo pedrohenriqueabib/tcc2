@@ -91,10 +91,10 @@ Route::prefix('atividade')->group( function (){
     Route::post('/adicionarColaborador', [AtividadeController::class, 'adicionarColaborador'])->name('adicionarColaborador');
 
     //Rota para selecionar dados para o participante escolher em qual atividade irá colaborar
-    Route::get('/colaborarAtividade/{evento_id}/{participante_id}', [AtividadeController::class, 'colaborarAtividade'])->name('colaborarAtividade');
+    Route::get('/inscreverAtividade/{id}', [AtividadeController::class, 'inscreverAtividade'])->name('inscreverAtividade');
 
     //Rota para adição do participante para colaborar na atividade
-    Route::post('/addParticipanteColaborador', [AtividadeController::class, 'addParticipanteColaborador'])->name('addParticipanteColaborador');
+    // Route::post('/addParticipanteColaborador', [AtividadeController::class, 'addParticipanteColaborador'])->name('addParticipanteColaborador');
 
     //rota para remoção de colaborador
     Route::post('removerColaborador', [AtividadeController::class, 'removerColaborador'])->name('removerColaborador');
@@ -214,9 +214,9 @@ Route::get('/membrosComite', function(){
 })->name('site.membrosComite');
 
 //Rota para o participante colaborar com uma atividade
-Route::get('/colaborarAtividade', function(){
-    return view('colaborarAtividade');
-})->name('site.colaborarAtividade');
+Route::get('/inscreverAtividade', function(){
+    return view('inscreverAtividade');
+})->name('site.inscreverAtividade');
 
 //Rota para o participante se inscrever em atividades do Evento
 Route::get('participarAtividade', function(){
