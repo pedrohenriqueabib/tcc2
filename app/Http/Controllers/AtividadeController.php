@@ -162,7 +162,10 @@ class AtividadeController extends Controller
                 $atividades[] = $valor;
             }
         }
-        
+        if(!isset($atividades) && empty($atividades)){
+            $atividades = null;
+        }
+
         return view("site.inscreverAtividade", compact('atividades','evento_id', 'evento_nome'));
     }
 

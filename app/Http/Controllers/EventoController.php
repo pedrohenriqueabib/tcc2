@@ -14,7 +14,6 @@ use App\Models\Organizador;
 class EventoController extends Controller
 {
     public function formEvent(){
-        // $organizador = '';
         return redirect()->route('site.criarEvento');
     }
 
@@ -45,20 +44,16 @@ class EventoController extends Controller
         $comite_organizador->organizador_id = $request->organizador_id;
         $comite_organizador->save();
 
-        session()->put('idEvento', $evento->id);
-        return redirect()->route('showEvent');
+        return redirect()->route('showEvent', ['id'=>$evento->id]);
     }
 
-    public function show(){
-        $id = session('idEvento');
+    public function showEvent($id){
         $evento = Evento::find($id);
         $organizacao = Organizacao::find($evento->id);
         $comite = Comite::where('organizacao_id', $organizacao->id)->get();
         $comite_organizador = [];
 
-        // foreach($comite as $valor){
-            $comite_organizador = ComiteOrganizador::where('comite_id',$comite[0]->id)->get();
-        // }
+        $comite_organizador = ComiteOrganizador::where('comite_id',$comite[0]->id)->get();
 
         $organizador = Organizador::where('id', $comite_organizador[0]->id)->get();
         $atividade = Atividade::where('evento_id', session('idEvento'))->get();  
@@ -123,6 +118,6 @@ class EventoController extends Controller
         $evento->data_fim = $request->dataFim;
         $evento->save();
 
-        return redirect()->route('showEvent');
+        return redirect()->route('showEvent', ['id'=>$evento->id]);
     }
 }

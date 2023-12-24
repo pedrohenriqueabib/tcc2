@@ -23,15 +23,19 @@ class AcessoController extends Controller
 
     public function home(){
         $evento = Evento::latest('id')->first();
-        $organizacao = Organizacao::where('evento_id', $evento->id)->first();
-        $comite = Comite::where('organizacao_id', $organizacao->id)->first();
-        $comite_organizador = ComiteOrganizador::where('comite_id', $comite->id)->get();
-        $organizador = Organizador::where('id', $comite_organizador[0]->organizador_id)->get();
+        if(isset($evento) && !empty($evento)){
+            $organizacao = Organizacao::where('evento_id', $evento->id)->first();
+            $comite = Comite::where('organizacao_id', $organizacao->id)->first();
+            $comite_organizador = ComiteOrganizador::where('comite_id', $comite->id)->get();
+            $organizador = Organizador::where('id', $comite_organizador[0]->organizador_id)->get();
 
-        session()->put('idEvento', $evento->id);
-        session()->put('nomeEvento', $evento->nome);
-        
-        return view('site.home', compact('evento','organizacao','comite','comite_organizador','organizador'));
+            // session()->put('idEvento', $evento->id);
+            // session()->put('nomeEvento', $evento->nome);
+            
+            return view('site.home', compact('evento','organizacao','comite','comite_organizador','organizador'));
+        }else{
+            return view('site.home');
+        }
     }
 
     public function auth(Request $request) { // autenticar o usuario
@@ -47,10 +51,7 @@ class AcessoController extends Controller
             session()->put('idUsuario', $organizador->id);
             session()->put('emailUsuario', $organizador->email);
             
-            // return redirect()->route('site.home');
             return redirect()->route('home');
-
-
         }else if($colaborador){
             session()->put('tipoPerfil', 'Colaborador');
             session()->put('token',$request->_token);
@@ -58,19 +59,15 @@ class AcessoController extends Controller
             session()->put('idUsuario', $colaborador->id);
             session()->put('emailUsuario', $colaborador->email);
             
-            // return redirect()->route('site.home');
             return redirect()->route('home');
-
         }else if($participante){
             session()->put('tipoPerfil', 'Participante');
             session()->put('token',$request->_token);
             session()->put('nomeUsuario',$participante->nome);
             session()->put('idUsuario', $participante->id);
             session()->put('emailUsuario', $participante->email);
-
-            // return redirect()->route('site.home');
+            
             return redirect()->route('home');
-
         }else if($responsavel){
             session()->put('tipoPerfil', 'Responsavel');
             session()->put('token',$request->_token);
@@ -79,29 +76,36 @@ class AcessoController extends Controller
             session()->put('emailUsuario', $responsavel->email);
             
             return redirect()->route('home');
-
         }else{
             return redirect()->route('site.login', ['erro'=>'nuser']);
         }
-        // return 'autenticar ' . $request->email;
     }
     
     public function showPerfil(){
+        $comite_organizador = ComiteOrganizador::where('organizador_id', session('idUsuario'))->get();
+        if(isset($comite_organizador) && !empty($comite_organizador)){        
+            foreach ($comite_organizador as $value) {
+                $comite[] = Comite::select('organizacao_id')->where('id', $value->comite_id)->get();
+            }
 
-        // $com_org = ComiteOrganizador::where('organizador_id', session('idUsuario'))->first();
-        // $comite = Comite::where('id', $com_org->comite_id)->get();
-        // $organizacao = Organizacao::where('id', $comite[0]->organizacao_id)->first();
-        // $evento = Evento::find($organizacao->evento_id);
+            for($i=0 ; $i < count($comite); $i++) {
+                foreach($comite[$i] as $valor){
+                    $organizacao[] = Organizacao::where('id', $valor->organizacao_id)->get();
+                }
+            }
 
-        // return session('idUsuario');
-        // return $evento;
-        return view('site.perfil');
+            for( $i = 0; $i<count($organizacao); $i++){
+                foreach($organizacao[$i] as $valor){
+                    $evento[] = Evento::where('id',$valor->id)->get();
+                }
+            }
+
+            return view('site.perfil', compact('evento'));
+        }else{
+            return view('site.perfil');
+        }
     }
-
-    // public function signup () { // exibe formulário para cadastro de novo usuario
-    //     return view();
-    // }
-
+    
     public function save(Request $request) { //salva novo usuário
         if( $request->formTipo == 'formOrganizador'){
             $organizador = new Organizador();

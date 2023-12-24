@@ -44,7 +44,7 @@ Route::prefix('acesso')->group(function () {
 
 Route::prefix('evento')->group( function(){
     // Rota para exibir evento
-    Route::get('/showEvent', [EventoController::class, 'show'])->name('showEvent');
+    Route::get('/showEvent/{id}', [EventoController::class, 'showEvent'])->name('showEvent');
     
     // Rota para formulário de evento
     Route::get('/formEvent', [EventoController::class, 'formEvent'])->name('formEvent');
@@ -113,10 +113,10 @@ Route::prefix('comite')->group( function(){
     Route::post('salvarComite', [ComiteController::class, 'salvarComite'])->name('salvarComite');
 
     //Rota para coletar detalhes do comitê
-    Route::get('showComite/{id}', [ComiteController::class, 'showComite'])->name('showComite');
+    Route::get('showComite/{id}/{evento_id}', [ComiteController::class, 'showComite'])->name('showComite');
     
     //Rota para coletar membros do comitê
-    Route::get('showComiteMembros/{id}', [ComiteController::class, 'showMembrosComite'])->name('showMembrosComite');
+    Route::get('showComiteMembros/{id}/{evento_id}', [ComiteController::class, 'showMembrosComite'])->name('showMembrosComite');
 
     //Rota para atualizar dados do comite
     Route::post('editarComite', [ComiteController::class, 'editarComite'])->name('editarComite');

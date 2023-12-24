@@ -15,7 +15,14 @@
         </div>
 
         <div class="eventoAtual" style='display:none'>
-            <p><strong>Meu Evento: </strong><a href='{{route("showEvent")}}'>{{session('nomeEvento')}}</a></p>
+        @if(!empty($evento) && isset($evento))
+            <p><strong>Meus Eventos: </strong></p>
+            @foreach($evento as $valor)
+                @foreach($valor as $value)
+                    <a href='{{route("showEvent", ["id"=>$value->id])}}'>{{$value->nome}}</a>
+                @endforeach
+            @endforeach
+        @endif
         </div>
         
         <div class="minhasInscricoes" style='display:none'>

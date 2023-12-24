@@ -1,8 +1,8 @@
 @extends('site.layouts.layout')
 @section('content')
 <div class="container py-5">
-    {{session('idUsuario')}}
-    <p><strong>Evento:</strong> {{$evento_nome->nome}}</p>
+    <p><strong>Evento:</strong> <a href='{{route("visualizarEvento", ["id"=>$evento_id])}}'>{{$evento_nome->nome}}</a></p>
+    @if( $atividades != null)
     <table class="table table-bordered table-striped mb-none dataTable no-footer" id="datatable-default" role="grid" aria-describedby="datatable-default_info">
         <thead>
             <tr>
@@ -32,6 +32,9 @@
             @endforeach 
         </tbody>
     </table>
+    @else
+    <p>Não há atividades para você se inscrever!</p>
+    @endif
     
 </div>
 @endsection

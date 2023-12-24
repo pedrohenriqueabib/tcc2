@@ -18,7 +18,7 @@ return new class extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             
             $table->id();
-            $table->string('dia_semana',3);
+            $table->string('dia_semana',5);
             $table->date('inicio')->default(date("Y-m-d H:i:s"));
             $table->date('fim')->default(date("Y-m-d H:i:s"));
             $table->float('carga_horaria');

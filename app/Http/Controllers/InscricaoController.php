@@ -31,23 +31,6 @@ class InscricaoController extends Controller
         }else{
             return view('site.showInscricao');
         }
-
-        // // $evento = Evento::latest('id')->first();
-        // // return session('idUsuario');
-
-        // $inscricao_evento = InscricaoEvento::where('participante_id', session('idUsuario'))->get();
-        // $inscricao_atividade = InscricaoAtividade::where('participante_id', session('idUsuario'))->get();
-        // // return $inscricao_evento;
-
-        // for($i=0; $i < count($inscricao_evento); $i++){
-        //     $evento[$i] = Evento::select('nome', 'id')->find($inscricao_evento[$i]->evento_id);
-        // }
-        // if(isset($evento)){
-        //     return view('site.showInscricao', compact( 'evento'));
-        // }else{
-        //     // return redirect()->route('site.perfil',['erro'=>'noinsc']);
-        //     return view('site.showInscricao');
-        // }
     }
 
     public function inscricaoEvento(Request $request){

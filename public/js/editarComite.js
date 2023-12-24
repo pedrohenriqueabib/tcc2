@@ -3,13 +3,14 @@ let editar = document.querySelector('#editar');
 let cancelar = document.querySelector('#cancelar');
 let desabilitados = document.querySelectorAll('.desabilitado');
 
-editar.addEventListener('click', ()=>{
+editar.addEventListener('click', (e)=>{
     salvar.style.display = '';
     cancelar.style.display = '';
     editar.style.display = 'none';
     desabilitados.forEach((desabilitado)=>{
         desabilitado.removeAttribute('disabled');
     })
+    e.preventDefault();
 })
 
 cancelar.addEventListener('click', ()=>{

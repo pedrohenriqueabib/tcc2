@@ -7,6 +7,7 @@ use App\Models\Organizador;
 use App\Models\Organizacao;
 use App\Models\ComiteOrganizador;
 use App\Models\Comite;
+use App\Models\Evento;
 
 class ComiteController extends Controller
 {
@@ -39,13 +40,14 @@ class ComiteController extends Controller
         // return $lista;
     }
 
-    public function showComite($id){
+    public function showComite($id, $evento_id){
         $comite = Comite::where('id', $id)->first();
-        return view('site.comite', compact('comite'));
+        $evento = Evento::where('id', $evento_id)->first();
+        return view('site.comite', compact('comite', 'evento'));
         // return $id;
     }
 
-    public function showMembrosComite($id){
+    public function showMembrosComite($id, $evento_id){
         $comite = Comite::where('id', $id)->first();
         $comite_organizador = ComiteOrganizador::where('comite_id', $id)->get('organizador_id');
         
@@ -53,8 +55,10 @@ class ComiteController extends Controller
             $organizador[] = Organizador::where('id', $valor->organizador_id)->get();
         }
 
+        $evento = Evento::where('id', $evento_id)->first();
+
         $listaMembrosComite = Organizador::select('id', 'nome')->get();
-        return view('site.membrosComite', compact('comite', 'organizador', 'listaMembrosComite'));
+        return view('site.membrosComite', compact('evento', 'comite', 'organizador', 'listaMembrosComite'));
     }
 
     public function editarComite(Request $request){
@@ -63,7 +67,7 @@ class ComiteController extends Controller
         $comite->descricao = $request->descricaocomite;
         $comite->save();
 
-        return redirect()->route('showComite', ['id'=>$request->idcomite]);
+        return redirect()->route('showComite', ['id'=>$request->idcomite, 'evento_id'=>$request->idEvento]);
     }
 
     public function adicionarMembro(Request $request){
@@ -81,7 +85,7 @@ class ComiteController extends Controller
             }
         }
 
-        return redirect()->route('showMembrosComite', ['id'=>$request->comite_id]);
+        return redirect()->route('showMembrosComite', ['id'=>$request->comite_id, 'evento_id'=>$request->evento_id]);
     }
 
     public function removerMembro(Request $request){
@@ -92,7 +96,7 @@ class ComiteController extends Controller
             $comite_organizador->delete();
         }
 
-        return redirect()->route('showMembrosComite', ['id'=>$request->comite_id]); 
+        return redirect()->route('showMembrosComite', ['id'=>$request->comite_id, 'evento_id'=>$request->evento_id]); 
     }
 
     public function excluirComite(Request $request){

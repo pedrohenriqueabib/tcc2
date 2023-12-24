@@ -1,7 +1,7 @@
 @extends('site.layouts.layout')
 @section('content')
 <div class="container py-5">
-    <p><strong>Evento pertencente:</strong> <a href="{{route('showEvent')}}">{{session('nomeEvento')}}</a></p>
+    <p><strong>Evento pertencente:</strong> <a href="{{route('showEvent', ['id'=>$evento->id])}}">{{$evento->nome}}</a></p>
     <p><strong>Comite pertencente:</strong> {{$comite->nome}}</p>
     <table class="table table-bordered table-striped mb-none dataTable no-footer" id="datatable-default" role="grid" aria-describedby="datatable-default_info">
         <thead>
@@ -23,6 +23,7 @@
                         @csrf
                         <input type="hidden" name="organizador_id" value='{{$valor[0]->id}}'>
                         <input type="hidden" name="comite_id" value="{{$comite->id}}">
+                        <input type="hidden" name="evento_id" value="{{$evento->id}}">
                         <input type="submit" value="Remover" class='btn btn-link'>
                     </form>
                 </td>
@@ -56,11 +57,12 @@
         <form action="{{route('adicionarMembro')}}" method="post">
             @csrf 
             <input type="hidden" value='{{$comite->id}}' name='comite_id'> 
+            <input type="hidden" value='{{$evento->id}}' name='evento_id'> 
             <input type="hidden" name="selecionados" id='selecionados' value=''>
             <input class='btn btn-primary' type="submit" value="Adicionar" >
             <input class='btn btn-primary' type="button" value="Cancelar" id='cancelar'>
         </form>
     </div>
 </div>
-<script src="../../js/membrosComite.js"></script>
+<script src="../../../js/membrosComite.js"></script>
 @endsection

@@ -27,17 +27,21 @@
                 <form action="{{route('editarEvento')}}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="organizador" class="form-label">Organizador:</label>
-                        <input type="text" value='{{session("nomeUsuario")}}' style="width:50%" class="form-control" id="organizador" disabled>
-                        <input type="hidden" value='{{session("nomeUsuario")}}' style="width:50%" class="form-control" name="organizador" >
+                        <label for="organizador" class="form-label">Organizadores:</label>
+                        @foreach($organizador as $valor)
+                            {{$valor->nome}}
+                        @endforeach
+                        <!-- <input type="text" value='{{session("nomeUsuario")}}' style="width:50%" class="form-control" id="organizador" disabled>
+                        <input type="hidden" value='{{session("nomeUsuario")}}' style="width:50%" class="form-control" name="organizador" > -->
                     </div>
                     <div>
                         <input type="hidden" name="evento_id" value='{{$evento->id}}'>
                     </div>
                     <div class="mb-3">
                         <label for="organizacao" class="form-label">Organização:</label>
-                        <input type="text" value='{{$organizacao->nome}}' style="width:50%" class="form-control" name="organizacao" id="organizacao" disabled>
-                        <input type="hidden" value='{{$organizacao->nome}}' style="width:50%" class="form-control" name="organizacao" >
+                        {{$organizacao->nome}}
+                        <!-- <input type="text" value='{{$organizacao->nome}}' style="width:50%" class="form-control" name="organizacao" id="organizacao" disabled>
+                        <input type="hidden" value='{{$organizacao->nome}}' style="width:50%" class="form-control" name="organizacao" > -->
                     </div>
                     <div class="mb-3">
                         <label for="nomeEvento" class="form-label">Nome do Evento:*</label>
@@ -98,7 +102,7 @@
                         @foreach($comite as $valor)
                             <tr>
                                 <td>
-                                    <a href="{{route('showComite', ['id'=>$valor->id])}}">{{$valor->nome}}</a>
+                                    <a href="{{route('showComite', ['id'=>$valor->id, 'evento_id'=>$evento->id])}}">{{$valor->nome}}</a>
                                 </td>
                                 <td>
                                     {{$valor->descricao}} 
@@ -165,5 +169,5 @@
     </div>
     
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-  <script src="../js/evento.js"></script>
+  <script src="../../js/evento.js"></script>
 @endsection

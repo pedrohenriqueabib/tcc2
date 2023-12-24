@@ -33,7 +33,7 @@
                                 @csrf
                                 <input type="hidden" value='{{$selecionados[$i][0]->id}}' name="colaborador_id" id="colaborador_id">
                                 <input type="hidden" value='{{$atividade->id}}' name="atividade_id">
-                                <input type="submit" value="Remove" class='btn btn-link'>
+                                <input type="submit" value="Remover" class='btn btn-link'>
                             </form> 
                         </td>
                     </tr>
