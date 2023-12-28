@@ -2,7 +2,7 @@
 @section('content')
 <div class="container py-5">
     <p>
-        <a href="{{route('showEvent')}}">Retorna para Evento</a>
+        <a href="{{route('showEvent', ['id'=>$atividade->evento_id])}}">Retorna para Evento</a>
     </p>
     <div>
         <table class="table table-bordered table-striped mb-none dataTable no-footer" id="datatable-default" style='width:50%;' role="grid" aria-describedby="datatable-default_info">

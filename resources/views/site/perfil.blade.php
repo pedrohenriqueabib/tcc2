@@ -19,7 +19,7 @@
             <p><strong>Meus Eventos: </strong></p>
             @foreach($evento as $valor)
                 @foreach($valor as $value)
-                    <a href='{{route("showEvent", ["id"=>$value->id])}}'>{{$value->nome}}</a>
+                    <a href='{{route("showEvent", ["id"=>$value->id])}}'>{{$value->nome}}</a><br>
                 @endforeach
             @endforeach
         @endif
@@ -27,6 +27,10 @@
         
         <div class="minhasInscricoes" style='display:none'>
             <p><a href="{{route('showInscricao')}}">Minhas Inscricões</a></p>
+        </div>
+
+        <div class="colaboradorAtividade" style='display:none'>
+            <p><a href='{{route("colaboradorAtividade")}}'>Atividades em quais eu colaboro</a></p>
         </div>
     </div>
    

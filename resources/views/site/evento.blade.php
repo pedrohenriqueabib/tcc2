@@ -31,8 +31,6 @@
                         @foreach($organizador as $valor)
                             {{$valor->nome}}
                         @endforeach
-                        <!-- <input type="text" value='{{session("nomeUsuario")}}' style="width:50%" class="form-control" id="organizador" disabled>
-                        <input type="hidden" value='{{session("nomeUsuario")}}' style="width:50%" class="form-control" name="organizador" > -->
                     </div>
                     <div>
                         <input type="hidden" name="evento_id" value='{{$evento->id}}'>

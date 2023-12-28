@@ -101,6 +101,12 @@ Route::prefix('atividade')->group( function (){
 
     //Rota para exclusão de tividade e seus afins
     Route::post('removerAtividade', [AtividadeController::class, 'removerAtividade'])->name('removerAtividade');
+
+    //Rota para o colaborador visualizar as atividades das quais participa
+    Route::get('colaboradorAtividade', [AtividadeController::class, 'colaboradorAtividade'])->name('colaboradorAtividade');
+
+    //Rota para o coletar as informações da atividade a qual o colaborador deseja visualizar
+    Route::get('showColaboradorAtividade', [AtividadeController::class, 'showColaboradorAtividade'])->name('showColaboradorAtividade');
 });
 
 
@@ -222,3 +228,13 @@ Route::get('/inscreverAtividade', function(){
 Route::get('participarAtividade', function(){
     return view('participarAtividade');
 })->name('site.participarAtividade');
+
+//Rota para o Colaborador visualizar de quais atividades participa
+Route::get('colaboradorAtividade', function(){
+    return view('colaboradorAtividade');
+})->name('site.colaboradorAtividade');
+
+//Rota onde o colaborador verá informações sobre a atividade da qual ele participa
+Route::get('showColaboradorAtividade', function(){
+    return view('showColaboradorAtividade');
+})->name('site.showColaboradorAtividade');

@@ -27,7 +27,8 @@ class AtividadeController extends Controller
         $atividade->responsavel_id = $request->responsavelAtividade;
         $atividade->save();
         
-        return redirect()->route('showEvent');
+        return redirect()->route('showEvent', ['id'=>$request->eventoId]);
+        
     }
 
     public function criarAtividade($id){
@@ -169,20 +170,6 @@ class AtividadeController extends Controller
         return view("site.inscreverAtividade", compact('atividades','evento_id', 'evento_nome'));
     }
 
-    // public function addParticipanteColaborador(Request $request){
-    //     $inscricao_atividade = InscricaoAtividade::where('atividade_id', $request->atividade_id)->
-    //                             where('participante_id', $request->participante_id)->first();
-    //     if($inscricao_atividade){
-    //         return redirect()->route('visualizarEvento', ['id'=>$request->evento_id]);
-    //     }else{
-    //         $inscricao_atividade = new InscricaoAtividade();
-    //         $inscricao_atividade->atividade_id = $request->atividade_id;
-    //         $inscricao_atividade->participante_id = $request->participante_id;
-    //         $inscricao_atividade->save();
-    //         return redirect()->route('visualizarEvento', ['id'=>$request->evento_id]);
-    //     }
-    // }
-
     public function removerColaborador(Request $request){
         $colaborador_atividade = ColaboradorAtividade::where('atividade_id', $request->atividade_id)->
                                 where('colaborador_id', $request->colaborador_id)->first();
@@ -209,6 +196,21 @@ class AtividadeController extends Controller
         $inscricao_atividade = InscricaoAtividade::where('atividade_id', $request->atividade_id)->delete();
         $atividade_horario = AtividadeHorario::where('atividade_id', $request->atividade_id)->delete();
 
-        return redirect()->route('showEvent');
+        return redirect()->route('showEvent', ['id'=>$request->eventoId]);
+    }
+
+    public function colaboradorAtividade(){
+        $colaborador_atividade = ColaboradorAtividade::with('atividade', 'colaborador')->where('colaborador_id', session('idUsuario'))->get();
+        
+        // return $colaborador_atividade;
+        return view('site.colaboradorAtividade', compact('colaborador_atividade'));
+    }
+
+    public function showColaboradorAtividade(Request $request){
+        
+        $colaborador = Colaborador::where('id', $request->colaborador_id)->first();
+        $atividade = Atividade::where('id',$request->atividade_id)->first();
+
+        return view('site.showColaboradorAtividade', compact('colaborador', 'atividade'));
     }
 }

@@ -3,6 +3,7 @@ let caixa = document.querySelector('.caixa');
 let rotaOrganizador = document.querySelector(".rotaOrganizador");
 let eventoAtual = document.querySelector(".eventoAtual");
 let minhasInscricoes = document.querySelector(".minhasInscricoes");
+let colaboradorAtividade = document.querySelector(".colaboradorAtividade");
 
 
 if(tipoPerfil.value == 'Organizador'){
@@ -18,6 +19,6 @@ if(tipoPerfil.value == 'Participante'){
     minhasInscricoes.style.display = '';
 }
 
-// if(tipoPerfil.value == 'Colaborador'){
-//     caixa.innerHTML = '<p><strong>Tipo de Perfil: </strong>Colaborador</p>';
-// }
+if(tipoPerfil.value == 'Colaborador'){
+    colaboradorAtividade.style.display = '';
+}

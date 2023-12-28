@@ -56,12 +56,11 @@ class EventoController extends Controller
         $comite_organizador = ComiteOrganizador::where('comite_id',$comite[0]->id)->get();
 
         $organizador = Organizador::where('id', $comite_organizador[0]->id)->get();
-        $atividade = Atividade::where('evento_id', session('idEvento'))->get();  
+        $atividade = Atividade::where('evento_id', $id)->get();  
 
         return view('site.evento', compact(
             'evento', 'organizacao','comite','comite_organizador','organizador','atividade'
         ));
-
         
     }
 

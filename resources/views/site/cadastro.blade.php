@@ -27,7 +27,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="telefone" class="form-label">Telefone:</label>
-                    <input type="text"  style="width:50%" class="form-control" id="telefone" name="telefone" >
+                    <input type="text" maxlength='15'  style="width:50%" class="form-control" id="telefone" name="telefone" >
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="telefone" class="form-label">Telefone:</label>
-                    <input type="text"  style="width:50%" class="form-control" id="telefone" name="telefone" >
+                    <input type="text" maxlength='15'  style="width:50%" class="form-control" id="telefone" name="telefone" >
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
@@ -93,7 +93,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="telefone" class="form-label">Telefone:</label>
-                    <input type="text"  style="width:50%" class="form-control" id="telefone" name="telefone" >
+                    <input type="text" maxlength='15'  style="width:50%" class="form-control" id="telefone" name="telefone" >
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
@@ -118,7 +118,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="telefone" class="form-label">Telefone:</label>
-                    <input type="text"  style="width:50%" class="form-control" id="telefone" name="telefone" >
+                    <input type="text" maxlength='15'  style="width:50%" class="form-control" id="telefone" name="telefone" >
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
