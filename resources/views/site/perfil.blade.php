@@ -6,9 +6,10 @@
         <input type="hidden" value="{{session('tipoPerfil')}}" id="tipoPerfil" />
         <p><strong>Nome: </strong>{{session('nomeUsuario')}}</p>
         <p><strong>Email: </strong>{{session('emailUsuario')}}</p>
-        <div class="caixa">
-            
+        <div>
+            <a href='{{route("editarPerfil")}}'><button class='btn btn-secondary'>Editar Perfil</button></a>
         </div>
+        <br>
         
         <div class="rotaOrganizador" style='display:none'>            
             <p><a href="{{ route('formEvent') }}">Criar Novo Evento:+</a></p>
@@ -31,6 +32,9 @@
 
         <div class="colaboradorAtividade" style='display:none'>
             <p><a href='{{route("colaboradorAtividade")}}'>Atividades em quais eu colaboro</a></p>
+        </div>
+        <div class="responsavelAtividade">
+            <p><a href="{{route('responsavelAtividade')}}">Atividades em que sou responsável</a></p>
         </div>
     </div>
    

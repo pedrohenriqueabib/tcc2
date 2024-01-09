@@ -28,9 +28,6 @@ class AcessoController extends Controller
             $comite = Comite::where('organizacao_id', $organizacao->id)->first();
             $comite_organizador = ComiteOrganizador::where('comite_id', $comite->id)->get();
             $organizador = Organizador::where('id', $comite_organizador[0]->organizador_id)->get();
-
-            // session()->put('idEvento', $evento->id);
-            // session()->put('nomeEvento', $evento->nome);
             
             return view('site.home', compact('evento','organizacao','comite','comite_organizador','organizador'));
         }else{
@@ -82,7 +79,8 @@ class AcessoController extends Controller
     }
     
     public function showPerfil(){
-        $comite_organizador = ComiteOrganizador::where('organizador_id', session('idUsuario'))->get();
+        if(session('tipoPerfil') == 'Organizador')
+            $comite_organizador = ComiteOrganizador::where('organizador_id', session('idUsuario'))->get();
         if(isset($comite_organizador) && !empty($comite_organizador)){        
             foreach ($comite_organizador as $value) {
                 $comite[] = Comite::select('organizacao_id')->where('id', $value->comite_id)->get();
@@ -186,5 +184,49 @@ class AcessoController extends Controller
         Session::flush();
         return redirect()->route('home');
     } 
+
+    public function editarPerfil(){
+        if(session('tipoPerfil') == 'Organizador'){
+            $dados = Organizador::where('id', session('idUsuario'))->first();
+        }
+        if(session('tipoPerfil') == 'Colaborador'){
+            $dados = Colaborador::where('id', session('idUsuario'))->first();
+        }
+        if(session('tipoPerfil') == 'Participante'){
+            $dados = Participante::where('id', session('idUsuario'))->first();
+        }
+        if(session('tipoPerfil') == 'Responsavel'){
+            $dados = Responsavel::where('id', session('idUsuario'))->first();
+        }
+
+        return view('site.editarPerfil', compact('dados'));
+    }
+
+    public function editarUsuario(Request $request){
+        if(session('tipoPerfil') == 'Organizador'){
+            $usuario = Organizador::where('id', session('idUsuario'))->first();
+            $usuario->cargo = $request->cargo;
+            $usuario->matricula = $request->matricula;
+        }else if(session('tipoPerfil') == 'Responsavel'){
+            $usuario = Responsavel::where('id', session('idUsuario'))->first();
+            $usuario->cargo = $request->cargo;
+            $usuario->matricula = $request->matricula;
+        }else if(session('tipoPerfil') == 'Colaborador'){
+            $usuario = Colaborador::where('id', session('idUsuario'))->first();
+            $usuario->descricao = $request->descricao;
+        }else if(session('tipoPerfil') == 'Participante'){
+            $usuario = Participante::where('id', session('idUsuario'))->first();
+        }
+
+        $usuario->nome = $request->nome;
+        $usuario->telefone = $request->telefone;
+        $usuario->email = $request->email;
+        $usuario->save();
+
+        session()->put('nomeUsuario', $request->nome);
+        session()->put('emailUsuario', $request->email);
+
+        return redirect()->route('showPerfil');
+    }
 
 }

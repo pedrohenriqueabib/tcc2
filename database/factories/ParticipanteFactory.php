@@ -24,6 +24,7 @@ class ParticipanteFactory extends Factory
             'nome' => fake('pt_BR')->name(),
             'telefone' => $this->faker->phoneNumber('########'),
             'email'=> $this->faker->email(),
+            'senha' => $this->faker->password()
         ];
     }
 }

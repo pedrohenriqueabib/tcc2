@@ -4,6 +4,8 @@ let formResponsavel = document.querySelector("#formResponsavel");
 let formParticipante = document.querySelector("#formParticipante");
 let formColaborador = document.querySelector("#formColaborador");
 let telefone = document.querySelectorAll("#telefone");
+let cargo = document.querySelectorAll('#cargo');
+let matricula = document.querySelectorAll('#matricula');
 
 selector.addEventListener('change', ()=>{
     if(selector.value == 'organizador'){
@@ -44,4 +46,16 @@ telefone.forEach(tel => {
         tel.value = tel.value.replace(/(\d{2})(\d{5})(\d{4})/, formato);
         let r = tel.value;
     })
+})
+
+cargo.forEach(carg => {
+    carg.addEventListener('keyup', (e)=>{
+        carg.value = carg.value.replace(/[^a-zA-Z]/g, '');        
+    });
+})
+
+matricula.forEach( mat => {
+    mat.addEventListener('input', ()=>{
+        mat.value = mat.value.replace(/\D/g, '');
+    });
 })

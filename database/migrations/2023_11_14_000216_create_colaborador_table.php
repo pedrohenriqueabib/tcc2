@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('telefone', 20);
             $table->string('email', 200);
             $table->string('descricao',300)->nullable();
+            $table->string('senha');
             
         });
     }

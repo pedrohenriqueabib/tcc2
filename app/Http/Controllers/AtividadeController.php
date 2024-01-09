@@ -213,4 +213,10 @@ class AtividadeController extends Controller
 
         return view('site.showColaboradorAtividade', compact('colaborador', 'atividade'));
     }
+
+    public function responsavelAtividade(){
+        $responsavel_atividade = Atividade::with('evento','responsavel')->where('responsavel_id', session('idUsuario'))->get();
+        // return $responsavel_atividade;
+        return view('site.showResponsavelAtividade', compact('responsavel_atividade'));
+    }
 }

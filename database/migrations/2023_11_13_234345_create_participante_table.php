@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('nome', 100);
             $table->string('telefone', 20);
             $table->string('email', 200);
+            $table->string('senha');
             
         });
     }

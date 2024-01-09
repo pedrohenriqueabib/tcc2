@@ -1,5 +1,5 @@
 let tipoPerfil = document.querySelector('#tipoPerfil');
-let caixa = document.querySelector('.caixa');
+// let caixa = document.querySelector('.caixa');
 let rotaOrganizador = document.querySelector(".rotaOrganizador");
 let eventoAtual = document.querySelector(".eventoAtual");
 let minhasInscricoes = document.querySelector(".minhasInscricoes");

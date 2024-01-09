@@ -34,6 +34,12 @@ Route::prefix('acesso')->group(function () {
     // Rota para sair da sessão
     Route::get('/logout', [AcessoController::class, 'logout'])->name('logout');
 
+    //Rota para coletar dados para o usuário poder editar
+    Route::get('/editarPerfil', [AcessoController::class, 'editarPerfil'])->name('editarPerfil');
+
+    //Rota par atualizar os dados do usuario
+    Route::post('editarUsuario', [AcessoController::class, 'editarUsuario'])->name('editarUsuario');
+
 
     // Rota para atualizar um funcionário existente (via método PUT)
     //Route::put('/', [FuncionariosController::class, 'update']);
@@ -107,6 +113,9 @@ Route::prefix('atividade')->group( function (){
 
     //Rota para o coletar as informações da atividade a qual o colaborador deseja visualizar
     Route::get('showColaboradorAtividade', [AtividadeController::class, 'showColaboradorAtividade'])->name('showColaboradorAtividade');
+    
+    //Rota para o responsável visuzalizar a quais atividades ele é responsável
+    Route::get('responsavelAtividade', [AtividadeController::class, 'responsavelAtividade'])->name('responsavelAtividade');
 });
 
 
@@ -238,3 +247,13 @@ Route::get('colaboradorAtividade', function(){
 Route::get('showColaboradorAtividade', function(){
     return view('showColaboradorAtividade');
 })->name('site.showColaboradorAtividade');
+
+//Rota para o responsável visualizar a atividade ele é responsável
+Route::get('showResponsavelAtividade', function(){
+    return view('showResponsavelAtividade');
+})->name('site.showResponsavelAtividade');
+
+//Rota para o usuario editar seu perfil
+Route::get('editarPerfil', function(){
+    return view('editarPerfil');
+})->name('site.editarPerfil');
