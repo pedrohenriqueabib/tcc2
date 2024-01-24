@@ -44,6 +44,7 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password:</label>
                     <input type="password" style="width:50%" class="form-control" name="password" id="password">
+                    <input type="checkbox" id="exibirSenha"> Exibir Senha
                 </div>
                 <button type="submit" class="btn btn-primary" id="submit">Submit</button>
                 <button type="reset" class="btn btn-primary">Resetar</button>
@@ -77,6 +78,7 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password:</label>
                     <input type="password" style="width:50%" class="form-control" name="password" id="password">
+                    <input type="checkbox" id="exibirSenha"> Exibir Senha
                 </div>
                 <button type="submit" class="btn btn-primary" id="submit">Submit</button>
                 <button type="reset" class="btn btn-primary">Resetar</button>
@@ -102,6 +104,7 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password:</label>
                     <input type="password" style="width:50%" class="form-control" name="password" id="password">
+                    <input type="checkbox" id="exibirSenha"> Exibir Senha
                 </div>
                 <button type="submit" class="btn btn-primary" id="submit">Submit</button>
                 <button type="reset" class="btn btn-primary">Resetar</button>
@@ -131,6 +134,7 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password:</label>
                     <input type="password" style="width:50%" class="form-control" name="password" id="password">
+                    <input type="checkbox" id="exibirSenha"> Exibir Senha
                 </div>
                 <button type="submit" class="btn btn-primary" id="submit">Submit</button>
                 <button type="reset" class="btn btn-primary">Resetar</button>

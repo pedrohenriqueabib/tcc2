@@ -6,6 +6,9 @@ let formColaborador = document.querySelector("#formColaborador");
 let telefone = document.querySelectorAll("#telefone");
 let cargo = document.querySelectorAll('#cargo');
 let matricula = document.querySelectorAll('#matricula');
+let exibirSenha = document.querySelectorAll('#exibirSenha');
+let password = document.querySelectorAll('#password');
+let loc = window.location.href;
 
 selector.addEventListener('change', ()=>{
     if(selector.value == 'organizador'){
@@ -59,3 +62,22 @@ matricula.forEach( mat => {
         mat.value = mat.value.replace(/\D/g, '');
     });
 })
+
+exibirSenha.forEach( exibir => {    
+    exibir.addEventListener('change', function(){
+        if(exibir.checked){
+            password.forEach( pass => {
+                pass.type = 'text';
+            })
+        }else{
+            password.forEach( pass => {
+                pass.type = 'password';
+            })
+        }
+    })
+})
+
+erro = loc.split('=');
+if(erro[1]){
+    alert('Email '+erro[1]);
+}

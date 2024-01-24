@@ -36,10 +36,10 @@ class AcessoController extends Controller
     }
 
     public function auth(Request $request) { // autenticar o usuario
-        $organizador = Organizador::where('email', $request->email)->first();//->where('password', $request->password)->first();
-        $colaborador = Colaborador::where('email', $request->email)->first();//->where('password', $request->password)->first();
-        $participante = Participante::where('email', $request->email)->first();//->where('password', $request->password)->first();
-        $responsavel = Responsavel::where('email', $request->email)->first();//->where('password', $request->password)->first();
+        $organizador = Organizador::where('email', $request->email)->where('senha', $request->password)->first();
+        $colaborador = Colaborador::where('email', $request->email)->where('senha', $request->password)->first();
+        $participante = Participante::where('email', $request->email)->where('senha', $request->password)->first();
+        $responsavel = Responsavel::where('email', $request->email)->where('senha', $request->password)->first();
         
         if($organizador){
             session()->put('tipoPerfil', 'Organizador');
@@ -79,100 +79,110 @@ class AcessoController extends Controller
     }
     
     public function showPerfil(){
-        if(session('tipoPerfil') == 'Organizador')
+        if(session('tipoPerfil') == 'Organizador'){
             $comite_organizador = ComiteOrganizador::where('organizador_id', session('idUsuario'))->get();
-        if(isset($comite_organizador) && !empty($comite_organizador)){        
-            foreach ($comite_organizador as $value) {
-                $comite[] = Comite::select('organizacao_id')->where('id', $value->comite_id)->get();
-            }
+            if(isset($comite_organizador) && !empty($comite_organizador)){        
+                foreach ($comite_organizador as $value) {
+                    $comite[] = Comite::select('organizacao_id')->where('id', $value->comite_id)->get();
+                }
 
-            for($i=0 ; $i < count($comite); $i++) {
-                foreach($comite[$i] as $valor){
-                    $organizacao[] = Organizacao::where('id', $valor->organizacao_id)->get();
+                if( !empty($comite)&&isset($comite)){
+                    for($i=0 ; $i < count($comite); $i++) {
+                        foreach($comite[$i] as $valor){
+                            $organizacao[] = Organizacao::where('id', $valor->organizacao_id)->get();
+                        }
+                    }
+    
+                    for( $i = 0; $i<count($organizacao); $i++){
+                        foreach($organizacao[$i] as $valor){
+                            $evento[] = Evento::where('id',$valor->id)->get();
+                        }
+                    }
+    
+                    return view('site.perfil', compact('evento'));
+                }else{
+                    return view('site.perfil');
                 }
             }
-
-            for( $i = 0; $i<count($organizacao); $i++){
-                foreach($organizacao[$i] as $valor){
-                    $evento[] = Evento::where('id',$valor->id)->get();
-                }
-            }
-
-            return view('site.perfil', compact('evento'));
         }else{
             return view('site.perfil');
         }
     }
     
     public function save(Request $request) { //salva novo usuário
-        if( $request->formTipo == 'formOrganizador'){
-            $organizador = new Organizador();
-            $organizador->nome = $request->nome;
-            $organizador->telefone = $request->telefone;
-            $organizador->email = $request->email;
-            $organizador->cargo = $request->cargo;
-            $organizador->matricula = $request->matricula;
-            // $organizador->senha = $request->password;
-            $organizador->save();
+       
+        if($this->verificarExistente($request->email, $request->formTipo) == 1){
+            return redirect()->route('site.cadastro', ['erro'=>'existente']);
+        }else{
+            if( $request->formTipo == 'formOrganizador'){
+                $organizador = new Organizador();
+                $organizador->nome = $request->nome;
+                $organizador->telefone = $request->telefone;
+                $organizador->email = $request->email;
+                $organizador->cargo = $request->cargo;
+                $organizador->matricula = $request->matricula;
+                $organizador->senha = $request->password;
+                $organizador->save();
 
-            session()->put('token',$request->_token);
-            session()->put('nomeUsuario', $request->nome);
-            session()->put('emailUsuario', $request->email);
-            session()->put('idUsuario', $organizador->id);
-            session()->put('tipoPerfil', 'Organizador');
-            
-            return redirect('/perfil');
+                session()->put('token',$request->_token);
+                session()->put('nomeUsuario', $request->nome);
+                session()->put('emailUsuario', $request->email);
+                session()->put('idUsuario', $organizador->id);
+                session()->put('tipoPerfil', 'Organizador');
+                
+                return redirect('/perfil');
 
-        }else if($request->formTipo == 'formResponsavel'){
-            $responsavel = new Responsavel();
-            $responsavel->nome = $request->nome;
-            $responsavel->telefone = $request->telefone;
-            $responsavel->email = $request->email;
-            $responsavel->cargo = $request->cargo;
-            $responsavel->matricula = $request->matricula;
-            // $responsavel->password = $request->password;
-            $responsavel->save();
+            }else if($request->formTipo == 'formResponsavel'){
+                $responsavel = new Responsavel();
+                $responsavel->nome = $request->nome;
+                $responsavel->telefone = $request->telefone;
+                $responsavel->email = $request->email;
+                $responsavel->cargo = $request->cargo;
+                $responsavel->matricula = $request->matricula;
+                $responsavel->password = $request->password;
+                $responsavel->save();
 
-            session()->put('token',$request->_token);
-            session()->put('nomeUsuario', $request->nome);
-            session()->put('emailUsuario', $request->email);
-            session()->put('idUsuario', $responsavel->id);
-            session()->put('tipoPerfil', 'Responsavel');
-            
-            return redirect('/perfil');
+                session()->put('token',$request->_token);
+                session()->put('nomeUsuario', $request->nome);
+                session()->put('emailUsuario', $request->email);
+                session()->put('idUsuario', $responsavel->id);
+                session()->put('tipoPerfil', 'Responsavel');
+                
+                return redirect('/perfil');
 
-        }else if($request->formTipo == 'formParticipante'){
-            $participante = new Participante();
-            $participante->nome = $request->nome;
-            $participante->telefone = $request->telefone;
-            $participante->email = $request->email;
-            // $participante->password = $request->password;
-            $participante->save();
+            }else if($request->formTipo == 'formParticipante'){
+                $participante = new Participante();
+                $participante->nome = $request->nome;
+                $participante->telefone = $request->telefone;
+                $participante->email = $request->email;
+                $participante->password = $request->password;
+                $participante->save();
 
-            session()->put('token',$request->_token);
-            session()->put('nomeUsuario', $request->nome);
-            session()->put('emailUsuario', $request->email);
-            session()->put('idUsuario', $participante->id);
-            session()->put('tipoPerfil', 'Participante');
-            
-            return redirect('/perfil');
+                session()->put('token',$request->_token);
+                session()->put('nomeUsuario', $request->nome);
+                session()->put('emailUsuario', $request->email);
+                session()->put('idUsuario', $participante->id);
+                session()->put('tipoPerfil', 'Participante');
+                
+                return redirect('/perfil');
 
-        }else if($request->formTipo == 'formColaborador'){
-            $colaborador = new Colaborador();
-            $colaborador->nome = $request->nome;
-            $colaborador->telefone = $request->telefone;
-            $colaborador->email = $request->email;
-            $colaborador->descricao = $request->descricao;
-            // $colaborador->password = $request->password;
-            $colaborador->save();
+            }else if($request->formTipo == 'formColaborador'){
+                $colaborador = new Colaborador();
+                $colaborador->nome = $request->nome;
+                $colaborador->telefone = $request->telefone;
+                $colaborador->email = $request->email;
+                $colaborador->descricao = $request->descricao;
+                $colaborador->password = $request->password;
+                $colaborador->save();
 
-            session()->put('token',$request->_token);
-            session()->put('nomeUsuario', $request->nome);
-            session()->put('emailUsuario', $request->email);
-            session()->put('idUsuario', $colaborador->id);
-            session()->put('tipoPerfil', 'Colaborador');
-            
-            return redirect('/perfil');
+                session()->put('token',$request->_token);
+                session()->put('nomeUsuario', $request->nome);
+                session()->put('emailUsuario', $request->email);
+                session()->put('idUsuario', $colaborador->id);
+                session()->put('tipoPerfil', 'Colaborador');
+                
+                return redirect('/perfil');
+            }
         }
     }
 
@@ -227,6 +237,30 @@ class AcessoController extends Controller
         session()->put('emailUsuario', $request->email);
 
         return redirect()->route('showPerfil');
+    }
+
+    private function verificarExistente($email, $tipo){
+        if($tipo == 'formOrganizador'){
+            $organizador = Organizador::where('email', $email)->first();
+            if(isset($organizador) && !empty($organizador)){
+                return 1;
+            }
+        }else if($tipo == 'formParticipante'){
+            $participante = Participante::where('email', $email)->first();
+            if(isset($participante) && !empty($participante)){
+                return 1;
+            }
+        }else if($tipo == 'formResponsavel'){
+            $responsavel = Responsavel::where('email', $email)->first();
+            if(isset($responsavel) && !empty($responsavel)){
+                return 1;
+            }
+        }else if($tipo == 'formColaborador'){
+            $colaborador = Colaborador::where('email', $email)->first();
+            if(isset($colaborador) && !empty($colaborador)){
+                return 1;
+            }
+        }
     }
 
 }

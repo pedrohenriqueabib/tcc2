@@ -33,7 +33,8 @@
         <div class="colaboradorAtividade" style='display:none'>
             <p><a href='{{route("colaboradorAtividade")}}'>Atividades em quais eu colaboro</a></p>
         </div>
-        <div class="responsavelAtividade">
+
+        <div class="responsavelAtividade" style='display:none'>
             <p><a href="{{route('responsavelAtividade')}}">Atividades em que sou responsável</a></p>
         </div>
     </div>

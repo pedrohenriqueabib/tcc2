@@ -6,7 +6,7 @@
             Ainda não tem conta?
             <a class="text-decoration-none fs-6" href="{{route('site.cadastro')}}" ng-if="viewModel.evento.urlEvento == null">Clique aqui para criar uma</a>
         </h2>
-        <form action="{{route('autenticar')}}" method="POST">
+        <form action="{{route('autenticar')}}" method="GET">
             @csrf
             <div class="mb-3">
                 <label for="email" class="form-label">Email:</label>

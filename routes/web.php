@@ -20,7 +20,7 @@ Route::prefix('acesso')->group(function () {
     Route::get('/login', [AcessoController::class, 'login'])->name('login');
 
     // Rota para autenticar usuario
-    Route::post('/auth', [AcessoController::class, 'auth'])->name('autenticar');
+    Route::get('/auth', [AcessoController::class, 'auth'])->name('autenticar');
 
     // Rota para formulário de cadastro de login
     Route::get('/signup', [AcessoController::class, 'signup'])->name('signup');
