@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('email', 200);
             $table->string('cargo', 100)->nullable();
             $table->string('matricula', 15)->nullable();
-            $table->string('senha');
+            $table->string('password');
             
         });
     }

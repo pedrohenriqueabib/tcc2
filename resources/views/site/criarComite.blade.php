@@ -12,6 +12,7 @@
                 <label for="organizador" class="form-label">Organizador:</label>
                 <input type="text" name='organizador' id="organizador" value='{{session("nomeUsuario")}}' style="width:50%" class="form-control" disabled>
                 <input type="hidden" name='organizador_id' id="organizador" value='{{session("idUsuario")}}' style="width:50%" class="form-control" >
+                <input type="hidden" name='evento_id' id="evento_id" value='{{$evento_id}}' style="width:50%" class="form-control" >
             </div>
             <div class="mb-3">
                 <label for="organizacao" class="form-label">Organização:</label>
@@ -55,5 +56,5 @@
             <button type="reset" class="btn btn-primary">Resetar</button>
         </form>
     </div>
-    <script src='../../js/comite.js'><script>
+    <script src='../../../js/comite.js'><script>
 @endsection

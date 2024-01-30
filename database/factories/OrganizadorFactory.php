@@ -37,7 +37,7 @@ class OrganizadorFactory extends Factory
             'email'=> $this->faker->email(),
             'cargo' => $this->faker->stateAbbr(),
             'matricula'=>$this->faker->numerify('#####'),
-            'senha' => $this->faker->password()
+            'password' => $this->faker->password()
             
         ];
         

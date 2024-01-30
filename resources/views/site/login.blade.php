@@ -15,7 +15,7 @@
             <div class="mb-3">
                 <label for="password" class="form-label">Password:</label>
                 <label for="password-login" class="label-text" style="margin-left:32%">
-                    <a href="/evento/esquecisenha" class="text-decoration-none fs-6" ng-if="viewModel.evento.urlEvento == null">Esqueci minha senha</a><!---->
+                    <a href="/evento/esquecipassword" class="text-decoration-none fs-6" ng-if="viewModel.evento.urlEvento == null">Esqueci minha password</a><!---->
                 </label>
                 <input type="password" name='password' style="width:50%" class="form-control" id="password">
             </div>

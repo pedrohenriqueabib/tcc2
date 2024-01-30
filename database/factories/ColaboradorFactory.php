@@ -25,7 +25,7 @@ class ColaboradorFactory extends Factory
             'telefone' => $this->faker->phoneNumber('########'),
             'email'=> $this->faker->email(),
             'descricao' => $this->faker->sentence(),
-            'senha' => $this->faker->password()
+            'password' => $this->faker->password()
         ];
     }
 }

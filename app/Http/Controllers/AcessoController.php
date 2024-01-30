@@ -36,10 +36,10 @@ class AcessoController extends Controller
     }
 
     public function auth(Request $request) { // autenticar o usuario
-        $organizador = Organizador::where('email', $request->email)->where('senha', $request->password)->first();
-        $colaborador = Colaborador::where('email', $request->email)->where('senha', $request->password)->first();
-        $participante = Participante::where('email', $request->email)->where('senha', $request->password)->first();
-        $responsavel = Responsavel::where('email', $request->email)->where('senha', $request->password)->first();
+        $organizador = Organizador::where('email', $request->email)->where('password', $request->password)->first();
+        $colaborador = Colaborador::where('email', $request->email)->where('password', $request->password)->first();
+        $participante = Participante::where('email', $request->email)->where('password', $request->password)->first();
+        $responsavel = Responsavel::where('email', $request->email)->where('password', $request->password)->first();
         
         if($organizador){
             session()->put('tipoPerfil', 'Organizador');
@@ -121,7 +121,7 @@ class AcessoController extends Controller
                 $organizador->email = $request->email;
                 $organizador->cargo = $request->cargo;
                 $organizador->matricula = $request->matricula;
-                $organizador->senha = $request->password;
+                $organizador->password = $request->password;
                 $organizador->save();
 
                 session()->put('token',$request->_token);
@@ -187,7 +187,7 @@ class AcessoController extends Controller
     }
 
     public function forgetPassword () {
-        // exibe formulário para recebimento de nova senha
+        // exibe formulário para recebimento de nova password
     }
 
     public function logout(){

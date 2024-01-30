@@ -1,6 +1,7 @@
 @extends('site.layouts.layout')
 @section('content')
 <div class="container py-5">
+    aquii
     <p><strong>Evento pertencente:</strong> <a href="{{route('showEvent', ['id'=>$evento->id])}}">{{$evento->nome}}</a></p>
     <p><strong>Comite pertencente:</strong> {{$comite->nome}}</p>
     <table class="table table-bordered table-striped mb-none dataTable no-footer" id="datatable-default" role="grid" aria-describedby="datatable-default_info">

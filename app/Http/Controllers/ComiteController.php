@@ -12,12 +12,12 @@ use App\Models\Evento;
 class ComiteController extends Controller
 {
     //Rota para redirecionar para o formulário
-    public function formComite($id){
+    public function formComite($id, $evento_id){
         $organizacao = Organizacao::where('id', $id)->first();
         $organizador = Organizador::all();
 
         // return $organizacao;
-        return view("site.criarComite", ['id'=>$id], compact('organizador', 'organizacao'));
+        return view("site.criarComite", ['id'=>$id, 'evento_id'=> $evento_id], compact('organizador', 'organizacao'));
     }
 
     public function salvarComite(Request $request){
@@ -36,7 +36,7 @@ class ComiteController extends Controller
             $comite_organizador->save();
         }
 
-        return redirect()->route('showEvent');
+        return redirect()->route('showEvent', ['id'=>$request->evento_id]);
         // return $lista;
     }
 
@@ -54,10 +54,22 @@ class ComiteController extends Controller
         foreach($comite_organizador as $valor){
             $organizador[] = Organizador::where('id', $valor->organizador_id)->get();
         }
-
+        
         $evento = Evento::where('id', $evento_id)->first();
 
-        $listaMembrosComite = Organizador::select('id', 'nome')->get();
+        $listaSelecionados = [];
+        foreach($organizador as $valor){
+            array_push($listaSelecionados, $valor[0]->id);
+        }
+
+        $organizadores = Organizador::select('id')->get();
+
+        for( $i=0; $i < count($organizadores); $i++){
+            if( !in_array($organizadores[$i]->id,$listaSelecionados)){
+                $listaMembrosComite[] = Organizador::select('id', 'nome')->where('id',$organizadores[$i]->id)->first();
+            }
+        }
+
         return view('site.membrosComite', compact('evento', 'comite', 'organizador', 'listaMembrosComite'));
     }
 
@@ -86,6 +98,7 @@ class ComiteController extends Controller
         }
 
         return redirect()->route('showMembrosComite', ['id'=>$request->comite_id, 'evento_id'=>$request->evento_id]);
+
     }
 
     public function removerMembro(Request $request){
@@ -103,6 +116,6 @@ class ComiteController extends Controller
         $comite_organizador = ComiteOrganizador::where('comite_id', $request->comite_id)->delete();
         $comite = Comite::where('id', $request->comite_id)->delete();
         
-        return redirect()->route('showEvent');
+        return redirect()->route('showEvent', ['id'=>$request->evento_id]);
     }
 }

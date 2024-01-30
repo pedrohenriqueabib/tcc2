@@ -81,7 +81,7 @@
         <div>
             <div class="tab-pane fade" id="content2" role="tabpanel" aria-labelledby="tab2">
                 <div class="container py-5">
-                    <p><a href='{{route("formComite", ["id"=>$organizacao->id])}}'>Adicionar Comitê: +</a></p>
+                    <p><a href='{{route("formComite", ["id"=>$organizacao->id, "evento_id" => $evento->id])}}'>Adicionar Comitê: +</a></p>
                     <table class="table table-bordered table-striped mb-none dataTable no-footer" id="datatable-default" role="grid" aria-describedby="datatable-default_info">
                         <thead>
                             <tr>

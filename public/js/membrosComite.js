@@ -32,7 +32,7 @@ selecionarMembro.addEventListener('change', ()=>{
 });
 
 function verificar(id, lista){
-    let presente =0;
+    let presente = 0;
     lista.forEach((list)=>{
         if(list == id){
             presente = 1;

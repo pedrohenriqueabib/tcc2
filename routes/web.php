@@ -122,7 +122,7 @@ Route::prefix('atividade')->group( function (){
 Route::prefix('comite')->group( function(){
 
     //Rota para formulário para criar comitê
-    Route::get('formComite/{id}', [ComiteController::class, 'formComite'])->name('formComite');
+    Route::get('formComite/{id}/{evento_id}', [ComiteController::class, 'formComite'])->name('formComite');
 
     //Rota para "salvar" o comitê no banco de dados
     Route::post('salvarComite', [ComiteController::class, 'salvarComite'])->name('salvarComite');
